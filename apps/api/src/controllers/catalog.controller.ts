@@ -1,8 +1,22 @@
 import { Router, Request, Response, NextFunction } from 'express';
+import { GROUND_TRUTH_DATA } from '@lucky-gazab/shared-types';
 import { CatalogService } from '../services/catalog.service';
 import { ReviewService } from '../services/review.service';
 
 const router = Router();
+
+router.get('/', (req: Request, res: Response) => {
+  res.json({
+    success: true,
+    message: `${GROUND_TRUTH_DATA.businessName} Catalog API`,
+    endpoints: {
+      products: '/api/v1/catalog/products',
+      categories: '/api/v1/catalog/categories',
+      brands: '/api/v1/catalog/brands',
+      search: '/api/v1/catalog/search/autocomplete'
+    }
+  });
+});
 
 router.get('/products', (req: Request, res: Response, next: NextFunction) => {
   try {

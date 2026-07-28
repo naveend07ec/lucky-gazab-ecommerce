@@ -3,7 +3,7 @@ import { GROUND_TRUTH_DATA } from '@lucky-gazab/shared-types';
 
 const router = Router();
 
-router.get('/health', (req: Request, res: Response) => {
+const healthCheckHandler = (req: Request, res: Response) => {
   res.json({
     status: 'ok',
     uptime: process.uptime(),
@@ -11,6 +11,9 @@ router.get('/health', (req: Request, res: Response) => {
     service: GROUND_TRUTH_DATA.businessName,
     environment: process.env.NODE_ENV || 'development'
   });
-});
+};
+
+router.get('/', healthCheckHandler);
+router.get('/health', healthCheckHandler);
 
 export const healthRouter = router;

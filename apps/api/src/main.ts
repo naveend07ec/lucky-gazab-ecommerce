@@ -30,6 +30,17 @@ app.use((req, res, next) => {
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Root Health & API Index
+app.get('/', (req, res) => {
+  res.json({
+    status: 'ok',
+    service: GROUND_TRUTH_DATA.businessName,
+    version: '1.0.0',
+    documentation: '/api/v1/catalog',
+    health: '/health'
+  });
+});
+
 // Health Check
 app.use('/health', healthRouter);
 
