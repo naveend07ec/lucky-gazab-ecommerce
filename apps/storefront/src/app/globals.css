@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8f8f8;
+  --card-bg: #ffffff;
+  --text-primary: #111111;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+  --accent-primary: #111111;
+  --accent-burgundy: #8b1e3f;
+  --accent-burgundy-hover: #6d1731;
+  --accent-burgundy-light: #fbf2f4;
+  --error: #ef4444;
+  --success: #22c55e;
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, .font-serif-luxury {
+  font-family: var(--font-serif);
+  letter-spacing: -0.01em;
+}
+
+/* Luxury Card Elevation */
+.luxury-card {
+  background-color: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-card:hover {
+  border-color: #8b1e3f;
+  box-shadow: 0 12px 32px rgba(139, 30, 63, 0.06);
+  transform: translateY(-3px);
+}
+
+/* Luxury Buttons with Active Micro-Interactions */
+.luxury-button-primary {
+  background-color: #111111;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-button-primary:hover {
+  background-color: #8b1e3f;
+  transform: translateY(-1px);
+}
+
+.luxury-button-primary:active {
+  transform: scale(0.98);
+}
+
+.luxury-button-secondary {
+  background-color: #ffffff;
+  color: #111111;
+  border: 1px solid #111111;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.luxury-button-secondary:hover {
+  background-color: #8b1e3f;
+  color: #ffffff;
+  border-color: #8b1e3f;
+}
+
+.luxury-button-secondary:active {
+  transform: scale(0.98);
+}
+
+.burgundy-badge {
+  background-color: #fbf2f4;
+  color: #8b1e3f;
+  border: 1px solid #f3d5dc;
+  font-weight: 600;
+}
+
+/* Animations & Micro-Interactions (200-350ms easeOut) */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

@@ -1,0 +1,37 @@
+{
+  "name": "lucky-gazab-ecommerce",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Enterprise E-Commerce Monorepo for Lucky's GAZAB HI GAZAB",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev --workspace=apps/api",
+    "dev:storefront": "npm run dev --workspace=apps/storefront",
+    "dev:admin": "npm run dev --workspace=apps/admin",
+    "build:types": "npm run build --workspace=packages/shared-types",
+    "build:api": "npm run build --workspace=apps/api",
+    "build:storefront": "npm run build --workspace=apps/storefront",
+    "build:admin": "npm run build --workspace=apps/admin",
+    "build": "npm run build:types && npm run build:api && npm run build:admin && npm run build:storefront",
+    "postinstall": "npm run build:types"
+  },
+  "keywords": [
+    "ecommerce",
+    "cosmetics",
+    "indore",
+    "salon-professional",
+    "gazab-hi-gazab"
+  ],
+  "author": "Lucky's GAZAB HI GAZAB",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@types/node": "^20.11.24",
+    "typescript": "^5.3.3"
+  }
+}
