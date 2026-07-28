@@ -8,7 +8,7 @@ services:
     plan: free
     region: singapore
     rootDir: .
-    buildCommand: npm install && npm run build:types && npm run build:api
+    buildCommand: npm install --include=dev && npm run build:types && npm run build:api
     startCommand: npm run start --workspace=apps/api
     healthCheckPath: /health
     autoDeploy: true
@@ -40,7 +40,7 @@ services:
     plan: free
     region: singapore
     rootDir: .
-    buildCommand: npm install && npm run build:types && npm run build:storefront
+    buildCommand: npm install --include=dev && npm run build:types && npm run build:storefront
     startCommand: npm run start --workspace=apps/storefront
     autoDeploy: true
     envVars:
@@ -61,7 +61,7 @@ services:
     env: static
     region: singapore
     rootDir: .
-    buildCommand: npm install && npm run build:types && npm run build:admin
+    buildCommand: npm install --include=dev && npm run build:types && npm run build:admin
     staticPublishPath: ./apps/admin/dist
     autoDeploy: true
     routes:
@@ -78,8 +78,3 @@ databases:
     user: gazab_admin
     region: singapore
     plan: free
-
-# ---------------------------------------------------------------------------
-# Redis Cache & BullMQ Queue
-# ---------------------------------------------------------------------------
-# Note: Render Redis service definition
