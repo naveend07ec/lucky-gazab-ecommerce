@@ -148,14 +148,90 @@ export function Navbar({ cartCount = 1 }: { cartCount?: number }) {
           </Link>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden text-[#111111] p-2"
+            className="md:hidden text-[#111111] p-2 focus:outline-none"
+            aria-label="Toggle Mobile Navigation Menu"
           >
             {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
       </div>
 
-      {/* Luxury Category Links */}
+      {/* Mobile Drawer Menu (Visible on Mobile 320px - 768px) */}
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-white border-t border-[#E5E7EB] px-4 py-4 space-y-4 shadow-xl text-xs font-semibold uppercase tracking-wider">
+          <div className="relative">
+            <input
+              type="text"
+              placeholder="Search L'Oréal, O3+, Schwarzkopf..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full bg-[#F8F8F8] border border-[#E5E7EB] rounded-full py-2 pl-4 pr-10 text-xs text-[#111111]"
+            />
+            <Link
+              href={`/products?search=${encodeURIComponent(searchQuery)}`}
+              onClick={() => setMobileMenuOpen(false)}
+              className="absolute right-1 top-1/2 -translate-y-1/2 bg-[#111111] text-white p-1 rounded-full"
+            >
+              <Search className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="flex flex-col space-y-3 pt-2">
+            <Link href="/products" onClick={() => setMobileMenuOpen(false)} className="text-[#111111] hover:text-[#8B1E3F] py-1 border-b border-[#E5E7EB]">
+              All Collections
+            </Link>
+            <Link href="/products?category=salon-professional-products" onClick={() => setMobileMenuOpen(false)} className="text-neutral-700 hover:text-[#8B1E3F] py-1 border-b border-[#E5E7EB]">
+              Salon Professional
+            </Link>
+            <Link href="/products?category=hair-care-hair-color" onClick={() => setMobileMenuOpen(false)} className="text-neutral-700 hover:text-[#8B1E3F] py-1 border-b border-[#E5E7EB]">
+              Hair Care & Color
+            </Link>
+            <Link href="/products?category=skin-care-facial-kits" onClick={() => setMobileMenuOpen(false)} className="text-neutral-700 hover:text-[#8B1E3F] py-1 border-b border-[#E5E7EB]">
+              Skin Care & Facials
+            </Link>
+            <Link href="/products?category=branded-cosmetics-makeup" onClick={() => setMobileMenuOpen(false)} className="text-neutral-700 hover:text-[#8B1E3F] py-1 border-b border-[#E5E7EB]">
+              Branded Cosmetics
+            </Link>
+            <Link href="/track-order" onClick={() => setMobileMenuOpen(false)} className="text-neutral-700 hover:text-[#8B1E3F] py-1 border-b border-[#E5E7EB]">
+              Track Order
+            </Link>
+            <Link href="/blog" onClick={() => setMobileMenuOpen(false)} className="text-neutral-700 hover:text-[#8B1E3F] py-1 border-b border-[#E5E7EB]">
+              Beauty Journal
+            </Link>
+            <Link href="/contact" onClick={() => setMobileMenuOpen(false)} className="text-neutral-700 hover:text-[#8B1E3F] py-1 border-b border-[#E5E7EB]">
+              Contact Us
+            </Link>
+
+            {isAuthenticated ? (
+              <div className="pt-2 space-y-2">
+                <Link href="/account" onClick={() => setMobileMenuOpen(false)} className="block text-[#111111] font-bold">
+                  My Account Profile ({user?.name || 'Customer'})
+                </Link>
+                <button
+                  onClick={() => {
+                    logout();
+                    setMobileMenuOpen(false);
+                  }}
+                  className="text-red-600 font-bold text-left block"
+                >
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <div className="pt-2 flex gap-3">
+                <Link href="/login" onClick={() => setMobileMenuOpen(false)} className="flex-1 text-center py-2 border border-[#E5E7EB] rounded-lg text-[#111111] font-bold">
+                  Sign In
+                </Link>
+                <Link href="/register" onClick={() => setMobileMenuOpen(false)} className="flex-1 text-center py-2 bg-[#111111] text-white rounded-lg font-bold">
+                  Register
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Luxury Category Links (Desktop) */}
       <nav className="hidden md:block bg-white border-t border-[#E5E7EB]">
         <div className="max-w-7xl mx-auto px-4 flex items-center justify-center space-x-8 text-xs font-semibold uppercase tracking-wider py-3">
           <Link href="/products" className="text-[#111111] hover:text-[#8B1E3F] transition-colors border-b-2 border-transparent hover:border-[#8B1E3F] pb-0.5">
