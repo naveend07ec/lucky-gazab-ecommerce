@@ -4,13 +4,148 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ProductCard } from '@/components/ProductCard';
 import { GROUND_TRUTH_DATA } from '@lucky-gazab/shared-types';
-import { ShieldCheck, Truck, Sparkles, Award, ArrowRight, Star, Heart, CheckCircle2, ShoppingBag, Mail, RefreshCw, Headphones } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { ShieldCheck, Truck, Sparkles, Award, ArrowRight, Star, Heart, CheckCircle2, ShoppingBag, Mail, RefreshCw, Headphones, ChevronLeft, ChevronRight, Play, Pause } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function HomePage() {
   const [products, setProducts] = useState<any[]>([]);
   const [newsletterEmail, setNewsletterEmail] = useState('');
   const [subscribed, setSubscribed] = useState(false);
+  const [activeLookIndex, setActiveLookIndex] = useState(0);
+  const [hoveredHotspot, setHoveredHotspot] = useState<number | null>(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  const heroLooks = [
+    {
+      id: 'look-1',
+      title: 'TRY THE LOOK ON NOW!',
+      subtitle: 'MAKE HEARTS SKIP A BEAT',
+      badge: 'MAYBELLINE NEW YORK VIRTUAL STUDIO',
+      bgImage: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1600&q=80',
+      themeColor: '#C026D3',
+      products: [
+        {
+          num: 1,
+          name: 'FIT ME FOUNDATION',
+          subName: 'Matte + Poreless Liquid Foundation',
+          price: 499,
+          mrp: 599,
+          slug: 'maybelline-fitme-found-128',
+          image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=300&q=80',
+          hotspotPos: { top: '25%', left: '48%' } // Eyes/Skin
+        },
+        {
+          num: 2,
+          name: 'COLOR RIVALS PALETTE',
+          subName: '9 Color Pigmented Eyeshadow',
+          price: 289,
+          mrp: 349,
+          slug: 'swiss-beauty-eye-palette-01',
+          image: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=300&q=80',
+          hotspotPos: { top: '38%', left: '55%' } // Eye Makeup
+        },
+        {
+          num: 3,
+          name: 'SUPER STAY MATTE INK',
+          subName: '16HR Liquid Lipstick Ruler 80',
+          price: 599,
+          mrp: 699,
+          slug: 'maybelline-superstay-matte-ink-ruler',
+          image: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=300&q=80',
+          hotspotPos: { top: '56%', left: '50%' } // Lips
+        }
+      ]
+    },
+    {
+      id: 'look-2',
+      title: 'SALON KERATIN SMOOTH',
+      subtitle: '72-HOUR INTENSE GLOSS & SHINE',
+      badge: "L'ORÉAL PROFESSIONNEL PARIS",
+      bgImage: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1600&q=80',
+      themeColor: '#2563EB',
+      products: [
+        {
+          num: 1,
+          name: 'X-TENSO OLEOSHAPE',
+          subName: 'Smoothing & Straightening Cream',
+          price: 1099,
+          mrp: 1250,
+          slug: 'loreal-xtenso-oleoshape-smoothing-cream',
+          image: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=300&q=80',
+          hotspotPos: { top: '22%', left: '42%' }
+        },
+        {
+          num: 2,
+          name: 'ABSOLUT REPAIR MASK',
+          subName: 'Wheat Oil Resurfacing Masque',
+          price: 855,
+          mrp: 950,
+          slug: 'loreal-absolut-repair-mask-250',
+          image: 'https://images.unsplash.com/photo-1519735777090-ec97162dc266?w=300&q=80',
+          hotspotPos: { top: '45%', left: '60%' }
+        },
+        {
+          num: 3,
+          name: 'OIL HAIR SERUM',
+          subName: '6 Rare Flower Oils Nourishment',
+          price: 549,
+          mrp: 649,
+          slug: 'loreal-extraordinary-oil-100',
+          image: 'https://images.unsplash.com/photo-1608248597263-0057e57b4524?w=300&q=80',
+          hotspotPos: { top: '65%', left: '46%' }
+        }
+      ]
+    },
+    {
+      id: 'look-3',
+      title: 'GLASS SKIN FACIAL GLOW',
+      subtitle: 'BRIDAL RADIANCE & DEEP HYDRATION',
+      badge: 'O3+ PROFESSIONAL SKINCARE',
+      bgImage: 'https://images.unsplash.com/photo-1567928269937-ae1465228514?w=1600&q=80',
+      themeColor: '#D97706',
+      products: [
+        {
+          num: 1,
+          name: 'BRIGHTENING FACIAL KIT',
+          subName: '5-Step Professional Bridal Kit',
+          price: 1290,
+          mrp: 1450,
+          slug: 'o3-professional-brightening-facial-kit',
+          image: 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=300&q=80',
+          hotspotPos: { top: '30%', left: '50%' }
+        },
+        {
+          num: 2,
+          name: 'VITAMIN C FACE SERUM',
+          subName: '10% Ethyl Ascorbic Acid Glow',
+          price: 649,
+          mrp: 699,
+          slug: 'minimalist-vitc-serum-30',
+          image: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=300&q=80',
+          hotspotPos: { top: '48%', left: '44%' }
+        },
+        {
+          num: 3,
+          name: 'SUNSCREEN MATTE GEL',
+          subName: 'SPF 50 PA++++ UVA/UVB Shield',
+          price: 385,
+          mrp: 455,
+          slug: 'lotus-safesun-spf50-100',
+          image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?w=300&q=80',
+          hotspotPos: { top: '62%', left: '55%' }
+        }
+      ]
+    }
+  ];
+
+  // Auto cycle hero looks if playing
+  useEffect(() => {
+    if (!isPlaying) return;
+    const interval = setInterval(() => {
+      setActiveLookIndex((prev) => (prev + 1) % heroLooks.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [isPlaying, heroLooks.length]);
 
   useEffect(() => {
     fetch('http://localhost:4000/api/v1/catalog')
@@ -22,7 +157,7 @@ export default function HomePage() {
         }
       })
       .catch(() => {
-        // Fallback items if offline
+        // Fallback catalog
         setProducts([
           {
             id: 'sp-1',
@@ -93,6 +228,8 @@ export default function HomePage() {
     }
   };
 
+  const currentLook = heroLooks[activeLookIndex];
+
   const brandLogos = [
     "L'Oréal", "Maybelline", "Lakmé", "Colorbar", "Schwarzkopf", "Matrix", "Minimalist", "Mamaearth", "Lotus", "WOW"
   ];
@@ -127,94 +264,190 @@ export default function HomePage() {
   return (
     <div className="bg-[#FFFFFF] text-[#111111] overflow-x-hidden">
       {/* --------------------------------------------------------------------- */}
-      {/* 1. LUXURY EDITORIAL HERO SECTION (MODEL HOLDING COSMETIC ITEM) */}
+      {/* 1. MAYBELLINE-STYLE INTERACTIVE HERO SECTION ("TRY THE LOOK ON NOW!") */}
       {/* --------------------------------------------------------------------- */}
-      <section className="relative min-h-[90vh] lg:h-[92vh] w-full bg-[#FAF9F6] border-b border-[#EAEAEA] flex items-center overflow-hidden py-12 lg:py-0">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          
-          {/* Content Side (Left Column) */}
+      <section className="relative min-h-[85vh] lg:h-[90vh] w-full bg-[#111111] text-white overflow-hidden flex items-center">
+        {/* Background Image Carousel with Animated Transition */}
+        <AnimatePresence mode="wait">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="lg:col-span-6 space-y-6 text-left z-10"
-          >
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#8B1E3F]/10 border border-[#8B1E3F]/20 text-xs font-bold uppercase tracking-widest text-[#8B1E3F]">
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Haute Beautē & Cosmetics</span>
-            </div>
-
-            <h1 className="font-serif text-4xl sm:text-6xl lg:text-6xl font-extrabold tracking-tight text-[#111111] leading-[1.15]">
-              Discover Your Beauty, <span className="italic font-normal text-[#8B1E3F]">Naturally.</span>
-            </h1>
-
-            <p className="text-sm sm:text-base text-neutral-600 font-normal leading-relaxed max-w-lg">
-              Premium Hair Care, Skin Care & Branded Cosmetics for Every Style. Authorized retail & salon distributor in Indore.
-            </p>
-
-            {/* Buttons (Slide Up Motion) */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex flex-wrap gap-4 pt-2"
-            >
-              <Link
-                href="/products"
-                className="bg-[#111111] hover:bg-[#8B1E3F] text-white font-bold px-8 py-4 rounded-full text-xs uppercase tracking-widest transition-all shadow-xl hover:shadow-2xl hover:scale-105"
-              >
-                Shop Now
-              </Link>
-              <Link
-                href="/products?category=salon-professional-products"
-                className="bg-white hover:bg-neutral-100 text-[#111111] font-bold border border-[#111111] px-8 py-4 rounded-full text-xs uppercase tracking-widest transition-all"
-              >
-                Explore Collection
-              </Link>
-            </motion.div>
-
-            {/* Trust Badges */}
-            <div className="pt-6 flex items-center space-x-6 text-xs text-neutral-500 border-t border-[#EAEAEA]">
-              <div className="flex items-center space-x-1.5 font-semibold text-[#111111]">
-                <ShieldCheck className="w-4 h-4 text-[#8B1E3F]" />
-                <span>100% Genuine Brands</span>
-              </div>
-              <div className="flex items-center space-x-1.5 font-semibold text-[#111111]">
-                <Truck className="w-4 h-4 text-[#8B1E3F]" />
-                <span>Same-Day Indore Delivery</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Luxury Beauty Model Side (Right Column - Model with Cosmetics) */}
-          <motion.div
+            key={currentLook.id}
             initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: 'easeOut' }}
-            className="lg:col-span-6 relative w-full aspect-[4/5] sm:aspect-[4/4] lg:aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-white"
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+            className="absolute inset-0 z-0"
           >
-            {/* Front-Facing Beauty Model Image with Lipstick & Cosmetics */}
-            <motion.img
-              initial={{ scale: 1.05 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 6, ease: 'easeOut' }}
-              src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1200&q=80"
-              alt="Model Holding Luxury Lipstick & Cosmetic Product Campaign"
-              className="w-full h-full object-cover object-center"
+            <img
+              src={currentLook.bgImage}
+              alt={currentLook.title}
+              className="w-full h-full object-cover object-center filter brightness-[0.85] contrast-[1.05]"
             />
-            {/* Subtle Lighting Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-            
-            <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-white/50 text-[#111111] shadow-lg flex items-center justify-between">
-              <div>
-                <span className="text-[10px] uppercase font-bold tracking-widest text-[#8B1E3F] block">Haute Beautē Cosmetics</span>
-                <span className="font-serif text-sm font-bold">Matte Lipsticks & Skin Radiance</span>
-              </div>
-              <span className="text-xs font-extrabold text-[#111111] bg-[#FAF9F6] px-3 py-1.5 rounded-full border border-[#EAEAEA]">
-                Original Brands
-              </span>
-            </div>
+            {/* Dramatic Purple / Dark Gradient Tint Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30" />
           </motion.div>
+        </AnimatePresence>
+
+        {/* Carousel Controls (Left/Right Arrows + Play/Pause) */}
+        <div className="absolute top-6 right-6 z-30 flex items-center space-x-3 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
+          <button
+            onClick={() => setActiveLookIndex((prev) => (prev === 0 ? heroLooks.length - 1 : prev - 1))}
+            className="text-white hover:text-[#E5C384] transition-colors"
+            title="Previous Look"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          <span className="text-xs font-mono font-bold tracking-widest text-neutral-300">
+            {activeLookIndex + 1} / {heroLooks.length}
+          </span>
+
+          <button
+            onClick={() => setActiveLookIndex((prev) => (prev + 1) % heroLooks.length)}
+            className="text-white hover:text-[#E5C384] transition-colors"
+            title="Next Look"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+
+          <button
+            onClick={() => setIsPlaying(!isPlaying)}
+            className="text-white hover:text-[#E5C384] transition-colors pl-2 border-l border-white/20"
+            title={isPlaying ? 'Pause Auto Play' : 'Play Auto Play'}
+          >
+            {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+          </button>
+        </div>
+
+        {/* Interactive Face Hotspots ([1], [2], [3]) */}
+        <div className="absolute inset-0 z-20 pointer-events-none">
+          {currentLook.products.map((p) => (
+            <motion.div
+              key={p.num}
+              style={{ top: p.hotspotPos.top, left: p.hotspotPos.left }}
+              className="absolute pointer-events-auto cursor-pointer transform -translate-x-1/2 -translate-y-1/2"
+              onMouseEnter={() => setHoveredHotspot(p.num)}
+              onMouseLeave={() => setHoveredHotspot(null)}
+              whileHover={{ scale: 1.25 }}
+            >
+              <div className={`relative flex items-center justify-center w-8 h-8 rounded-full font-extrabold text-xs text-black border-2 border-white shadow-2xl transition-all ${
+                hoveredHotspot === p.num ? 'bg-[#E5C384] scale-125 ring-4 ring-white/50' : 'bg-white/90'
+              }`}>
+                {p.num}
+                {/* Pulsing ring around hotspot */}
+                <span className="absolute inset-0 rounded-full bg-white animate-ping opacity-40" />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Main Banner Content (Bottom Left + Right Product Cards) */}
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-end py-12">
+          
+          {/* Left Column: Bold Condensed Headline & CTA */}
+          <div className="lg:col-span-7 space-y-5 text-left">
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold uppercase tracking-widest text-[#E5C384]">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>{currentLook.badge}</span>
+            </div>
+
+            <motion.h1
+              key={`title-${currentLook.id}`}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="font-sans font-black text-5xl sm:text-7xl lg:text-7xl uppercase tracking-tighter leading-none text-white drop-shadow-2xl"
+            >
+              {currentLook.title}
+            </motion.h1>
+
+            <motion.p
+              key={`sub-${currentLook.id}`}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="text-lg sm:text-2xl font-bold uppercase tracking-wider text-neutral-200"
+            >
+              {currentLook.subtitle}
+            </motion.p>
+
+            <div className="flex flex-wrap gap-4 pt-2">
+              <Link
+                href="/products"
+                className="bg-white hover:bg-[#E5C384] text-black font-extrabold px-8 py-3.5 rounded-full text-xs uppercase tracking-widest transition-all shadow-2xl hover:scale-105"
+              >
+                Shop Featured Products
+              </Link>
+              <Link
+                href={`/product/${currentLook.products[2].slug}`}
+                className="bg-black/50 hover:bg-black/80 text-white font-bold border border-white/40 px-8 py-3.5 rounded-full text-xs uppercase tracking-widest backdrop-blur-md transition-all"
+              >
+                Virtual Try On
+              </Link>
+            </div>
+
+            {/* Look Selector Pills */}
+            <div className="flex items-center space-x-3 pt-6">
+              {heroLooks.map((look, idx) => (
+                <button
+                  key={look.id}
+                  onClick={() => setActiveLookIndex(idx)}
+                  className={`h-1.5 rounded-full transition-all ${
+                    activeLookIndex === idx ? 'w-10 bg-[#E5C384]' : 'w-3 bg-white/40 hover:bg-white'
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Right Column: Floating Product Cards (Numbered 1, 2, 3) */}
+          <div className="lg:col-span-5 space-y-3">
+            {currentLook.products.map((p) => (
+              <motion.div
+                key={p.num}
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.5, delay: p.num * 0.1 }}
+                onMouseEnter={() => setHoveredHotspot(p.num)}
+                onMouseLeave={() => setHoveredHotspot(null)}
+                className={`relative flex items-center space-x-4 p-3.5 rounded-2xl bg-white/90 backdrop-blur-lg text-black border transition-all shadow-xl cursor-pointer ${
+                  hoveredHotspot === p.num ? 'border-[#E5C384] ring-2 ring-[#E5C384] bg-white translate-x-[-8px]' : 'border-white/50 hover:bg-white'
+                }`}
+              >
+                {/* Number Badge (1, 2, 3) */}
+                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-black text-white font-black text-xs flex items-center justify-center">
+                  {p.num}
+                </div>
+
+                {/* Product Thumbnail */}
+                <div className="w-14 h-14 rounded-xl overflow-hidden bg-neutral-100 flex-shrink-0 border border-neutral-200">
+                  <img src={p.image} alt={p.name} className="w-full h-full object-cover" />
+                </div>
+
+                {/* Product Info */}
+                <div className="flex-1 text-left min-w-0">
+                  <span className="font-extrabold text-xs uppercase tracking-wider block text-black truncate">
+                    {p.name}
+                  </span>
+                  <span className="text-[11px] text-neutral-500 font-medium block truncate">
+                    {p.subName}
+                  </span>
+                  <div className="flex items-center space-x-2 pt-0.5">
+                    <span className="font-extrabold text-xs text-black">₹{p.price}</span>
+                    <span className="text-[10px] text-neutral-400 line-through">₹{p.mrp}</span>
+                  </div>
+                </div>
+
+                {/* Shop Button */}
+                <Link
+                  href={`/product/${p.slug}`}
+                  className="flex-shrink-0 bg-black hover:bg-[#8B1E3F] text-white p-2.5 rounded-full transition-colors"
+                  title="View Product Details"
+                >
+                  <ShoppingBag className="w-4 h-4" />
+                </Link>
+              </motion.div>
+            ))}
+          </div>
 
         </div>
       </section>
