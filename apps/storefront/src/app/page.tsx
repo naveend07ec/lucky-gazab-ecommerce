@@ -4,18 +4,21 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ProductCard } from '@/components/ProductCard';
 import { GROUND_TRUTH_DATA } from '@lucky-gazab/shared-types';
-import { ShieldCheck, Truck, Sparkles, Award, ArrowRight } from 'lucide-react';
+import { ShieldCheck, Truck, Sparkles, Award, ArrowRight, Star, Heart, CheckCircle2, ShoppingBag, Mail, RefreshCw, Headphones } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 export default function HomePage() {
   const [products, setProducts] = useState<any[]>([]);
+  const [newsletterEmail, setNewsletterEmail] = useState('');
+  const [subscribed, setSubscribed] = useState(false);
 
   useEffect(() => {
-    fetch('http://localhost:4000/api/v1/catalog/products')
+    fetch('http://localhost:4000/api/v1/catalog')
       .then(res => res.json())
       .then(json => {
-        if (json.success && json.data) {
-          setProducts(json.data.slice(0, 4));
+        const items = json.products || json.data;
+        if (items && Array.isArray(items)) {
+          setProducts(items.slice(0, 8));
         }
       })
       .catch(() => {
@@ -23,7 +26,7 @@ export default function HomePage() {
         setProducts([
           {
             id: 'sp-1',
-            name: "L'Oréal Professionnel X-Tenso Oleoshape Smoothing Cream",
+            name: "L'Oréal Professionnel X-Tenso Oleoshape Smoothing Cream (400g)",
             slug: 'loreal-xtenso-oleoshape-smoothing-cream',
             brand: "L'Oréal Professionnel",
             category: 'Salon Professional Products',
@@ -32,13 +35,13 @@ export default function HomePage() {
             mrp: 1250,
             discountPercent: 12,
             avgRating: 4.9,
-            reviewCount: 42,
+            reviewCount: 142,
             images: [{ url: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&q=80' }]
           },
           {
             id: 'hc-1',
-            name: "L'Oréal Professionnel Absolut Repair Hair Mask",
-            slug: 'loreal-absolut-repair-mask',
+            name: "L'Oréal Professionnel Absolut Repair Hair Mask (250ml)",
+            slug: 'loreal-absolut-repair-mask-250',
             brand: "L'Oréal Professionnel",
             category: 'Hair Care & Hair Color',
             sku: 'LOR-ABS-MASK-250',
@@ -46,12 +49,12 @@ export default function HomePage() {
             mrp: 950,
             discountPercent: 10,
             avgRating: 4.8,
-            reviewCount: 34,
+            reviewCount: 160,
             images: [{ url: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&q=80' }]
           },
           {
             id: 'sc-1',
-            name: 'O3+ Professional Brightening Facial Kit',
+            name: 'O3+ Professional Brightening Facial Kit for Radiant Glow',
             slug: 'o3-professional-brightening-facial-kit',
             brand: 'O3+ Professional',
             category: 'Skin Care & Facial Kits',
@@ -60,285 +63,446 @@ export default function HomePage() {
             mrp: 1450,
             discountPercent: 11,
             avgRating: 4.9,
-            reviewCount: 52,
+            reviewCount: 290,
             images: [{ url: 'https://images.unsplash.com/photo-1567928269937-ae1465228514?w=800&q=80' }]
           },
           {
             id: 'cm-1',
-            name: 'Maybelline Superstay Matte Ink Liquid Lipstick',
-            slug: 'maybelline-superstay-matte-ink',
+            name: 'Maybelline Superstay Matte Ink Liquid Lipstick - Ruler 80',
+            slug: 'maybelline-superstay-matte-ink-ruler',
             brand: 'Maybelline New York',
             category: 'Branded Cosmetics & Makeup',
-            sku: 'MAY-MATTE-INK-RULER',
+            sku: 'MAY-MATTE-INK-RULER-80',
             sellingPrice: 599,
             mrp: 699,
             discountPercent: 14,
             avgRating: 4.8,
-            reviewCount: 89,
+            reviewCount: 380,
             images: [{ url: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&q=80' }]
           }
         ]);
       });
   }, []);
 
-  const categories = [
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newsletterEmail) {
+      setSubscribed(true);
+      setTimeout(() => setSubscribed(false), 4000);
+      setNewsletterEmail('');
+    }
+  };
+
+  const brandLogos = [
+    "L'Oréal", "Maybelline", "Lakmé", "Colorbar", "Schwarzkopf", "Matrix", "Minimalist", "Mamaearth", "Lotus", "WOW"
+  ];
+
+  const testimonials = [
     {
-      title: 'Salon Professional Range',
-      slug: 'salon-professional-products',
-      subtitle: 'Shampoos, Masks, Serums & Hair Straightening Pods',
-      image: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&q=80'
+      id: 't1',
+      name: 'Pooja Deshmukh',
+      role: 'Salon Owner, Indore',
+      comment: "Lucky's GAZAB HI GAZAB is our go-to wholesale distributor for L'Oréal and O3+ kits. 100% genuine products with fastest local delivery!",
+      rating: 5,
+      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=300&q=80'
     },
     {
-      title: 'Skin Care & Facial Kits',
-      slug: 'skin-care-facial-kits',
-      subtitle: 'O3+ Brightening Pods & Dermaceutical Treatments',
-      image: 'https://images.unsplash.com/photo-1567928269937-ae1465228514?w=800&q=80'
+      id: 't2',
+      name: 'Rohan Mehta',
+      role: 'Celebrity Hair Stylist',
+      comment: 'Unmatched collection of Schwarzkopf and Olaplex professional lines. Authentic GST invoice provided on every purchase.',
+      rating: 5,
+      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80'
     },
     {
-      title: 'Hair Care & Hair Color',
-      slug: 'hair-care-hair-color',
-      subtitle: 'Schwarzkopf Igora & L\'Oréal Absolut Repair',
-      image: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80'
-    },
-    {
-      title: 'Branded Cosmetics & Makeup',
-      slug: 'branded-cosmetics-makeup',
-      subtitle: 'Maybelline Lipsticks, Foundations & Accessories',
-      image: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&q=80'
+      id: 't3',
+      name: 'Simran Kaur',
+      role: 'Beauty Content Creator',
+      comment: 'The skin care range is incredible! From Minimalist serums to Lotus sunscreens, everything arrives fresh and genuine.',
+      rating: 5,
+      avatar: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=300&q=80'
     }
   ];
 
   return (
-    <div className="space-y-16 pb-16 bg-white overflow-hidden">
-      {/* Editorial Luxury Hero Section - Cinematic Entrance */}
-      <section className="relative bg-[#111111] text-white py-20 lg:py-28 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
-          
-          {/* Hero Left Content (Fade & Slide Left) */}
+    <div className="bg-[#FFFFFF] text-[#111111] overflow-x-hidden">
+      {/* --------------------------------------------------------------------- */}
+      {/* 1. LUXURY FULL-SCREEN HERO SECTION (90-100VH) */}
+      {/* --------------------------------------------------------------------- */}
+      <section className="relative h-[90vh] sm:h-[95vh] w-full flex items-center justify-center overflow-hidden bg-[#111111]">
+        {/* Background Image with Slow Zoom */}
+        <motion.div
+          initial={{ scale: 1.08 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 8, ease: 'easeOut' }}
+          className="absolute inset-0 z-0"
+        >
+          <img
+            src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1600&q=80"
+            alt="Beauty Model High Fashion Hair & Makeup"
+            className="w-full h-full object-cover object-center opacity-85"
+          />
+        </motion.div>
+
+        {/* High-Contrast Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent z-10" />
+
+        {/* Hero Content Box */}
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-white">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="space-y-6 text-left"
+            className="max-w-2xl space-y-6"
           >
-            <span className="inline-flex items-center space-x-2 text-xs uppercase tracking-[0.25em] text-[#8B1E3F] font-semibold border-b border-[#8B1E3F]/30 pb-1">
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold uppercase tracking-widest text-[#E5C384]">
               <Sparkles className="w-3.5 h-3.5" />
               <span>Haute Beautē & Salon Professional</span>
-            </span>
+            </div>
 
-            <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.15] text-white">
-              Elevate Your Beauty & <span className="italic text-[#8B1E3F]">Salon Experience</span>
+            <h1 className="font-serif text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight">
+              Discover Your Beauty, <span className="italic font-normal text-[#E5C384]">Naturally.</span>
             </h1>
 
-            <p className="text-neutral-300 text-sm sm:text-base leading-relaxed max-w-xl font-light">
-              Welcome to <strong>{GROUND_TRUTH_DATA.businessName}</strong>, Indore's premier retail & wholesale distributor for 100% genuine salon professional products, branded cosmetics, and beauty essentials.
+            <p className="text-sm sm:text-lg text-neutral-300 font-light leading-relaxed max-w-xl">
+              Premium Hair Care, Skin Care & Branded Cosmetics crafted for every style. Authorized retail & salon distributor in Indore.
             </p>
 
-            <div className="flex flex-wrap gap-4 pt-2">
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <Link
-                  href="/products"
-                  className="bg-[#8B1E3F] hover:bg-[#6d1731] text-white font-semibold px-8 py-3.5 rounded-lg text-xs uppercase tracking-wider transition-all flex items-center space-x-2 shadow-lg"
-                >
-                  <span>Discover Catalog</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
-                <Link
-                  href="/contact"
-                  className="bg-transparent hover:bg-white/10 text-white border border-white/30 font-semibold px-8 py-3.5 rounded-lg text-xs uppercase tracking-wider transition-all"
-                >
-                  <span>Salon B2B Inquiry</span>
-                </Link>
-              </motion.div>
-            </div>
-
-            {/* Store Info Footer */}
-            <div className="pt-6 border-t border-neutral-800 flex flex-wrap gap-6 text-xs text-neutral-400">
-              <div>
-                <span className="text-[#8B1E3F] font-bold block">Indore Flagship Store</span>
-                <span>UG-2 Raunak Tower, Near Anand Bazar Sq.</span>
-              </div>
-              <div>
-                <span className="text-[#8B1E3F] font-bold block">Phone / Helpline</span>
-                <span>{GROUND_TRUTH_DATA.phoneLandline} | {GROUND_TRUTH_DATA.mobile}</span>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Hero Right Image (Fade & Slide Right with subtle Zoom) */}
-          <motion.div
-            initial={{ opacity: 0, x: 30, scale: 0.96 }}
-            animate={{ opacity: 1, x: 0, scale: 1.02 }}
-            transition={{ duration: 1, ease: 'easeOut' }}
-            className="relative"
-          >
-            <div className="aspect-[4/3] rounded-2xl overflow-hidden border border-neutral-800 shadow-2xl">
-              <img
-                src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1200&q=80"
-                alt="Luxury Cosmetics Display"
-                className="w-full h-full object-cover"
-              />
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Trust Badges Bar */}
-      <section className="max-w-7xl mx-auto px-4">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-6 p-6 bg-[#F8F8F8] border border-[#E5E7EB] rounded-2xl text-center"
-        >
-          <div className="space-y-1">
-            <ShieldCheck className="w-6 h-6 text-[#8B1E3F] mx-auto" />
-            <h4 className="font-bold text-xs uppercase tracking-wider text-[#111111]">100% Genuine Guarantee</h4>
-            <p className="text-[11px] text-[#6B7280]">Direct from authorized brand distributors</p>
-          </div>
-          <div className="space-y-1 border-t sm:border-t-0 sm:border-l border-[#E5E7EB] pt-4 sm:pt-0">
-            <Award className="w-6 h-6 text-[#8B1E3F] mx-auto" />
-            <h4 className="font-bold text-xs uppercase tracking-wider text-[#111111]">Salon Professional Pricing</h4>
-            <p className="text-[11px] text-[#6B7280]">Special B2B wholesale rates for parlors & salons</p>
-          </div>
-          <div className="space-y-1 border-t sm:border-t-0 sm:border-l border-[#E5E7EB] pt-4 sm:pt-0">
-            <Truck className="w-6 h-6 text-[#8B1E3F] mx-auto" />
-            <h4 className="font-bold text-xs uppercase tracking-wider text-[#111111]">Fast MP & Interstate Shipping</h4>
-            <p className="text-[11px] text-[#6B7280]">GST tax invoices provided with every purchase</p>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* Featured Categories Section */}
-      <section className="max-w-7xl mx-auto px-4 space-y-8">
-        <div className="text-center space-y-2">
-          <span className="text-[10px] font-bold text-[#8B1E3F] uppercase tracking-[0.2em] block">
-            Curated Collections
-          </span>
-          <h2 className="font-serif text-3xl font-extrabold text-[#111111]">
-            Explore Beauty Categories
-          </h2>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {categories.map((cat, idx) => (
             <motion.div
-              key={idx}
               initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: idx * 0.1 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="flex flex-wrap gap-4 pt-2"
             >
               <Link
-                href={`/products?category=${cat.slug}`}
-                className="luxury-card overflow-hidden group block"
+                href="/products"
+                className="bg-white hover:bg-[#E5C384] text-[#111111] font-bold px-8 py-3.5 rounded-full text-xs uppercase tracking-widest transition-all shadow-xl hover:shadow-2xl hover:scale-105"
               >
-                <div className="aspect-[4/3] overflow-hidden bg-[#F8F8F8]">
-                  <img
-                    src={cat.image}
-                    alt={cat.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                </div>
-                <div className="p-5 space-y-1">
-                  <h3 className="font-serif text-base font-bold text-[#111111] group-hover:text-[#8B1E3F] transition-colors">
-                    {cat.title}
-                  </h3>
-                  <p className="text-[11px] text-[#6B7280]">{cat.subtitle}</p>
-                </div>
+                Shop Collection
+              </Link>
+              <Link
+                href="/products?category=salon-professional-products"
+                className="bg-transparent hover:bg-white/10 text-white font-bold border border-white/40 px-8 py-3.5 rounded-full text-xs uppercase tracking-widest backdrop-blur-sm transition-all"
+              >
+                Explore Salon Brands
               </Link>
             </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* --------------------------------------------------------------------- */}
+      {/* 2. EDITORIAL SPOTLIGHT HERO / SECOND HERO */}
+      {/* --------------------------------------------------------------------- */}
+      <section className="py-16 sm:py-24 bg-[#F9F8F6] border-b border-[#EAEAEA]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Image Side */}
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=1000&q=80"
+                alt="Professional Salon Collection Hairdresser Styling"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              <div className="absolute bottom-6 left-6 text-white">
+                <span className="text-[10px] uppercase font-bold tracking-widest text-[#E5C384] block">Authorized Wholesale Partner</span>
+                <span className="font-serif text-xl font-bold">L'Oréal & Schwarzkopf Professional</span>
+              </div>
+            </motion.div>
+
+            {/* Content Side */}
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7 }}
+              className="space-y-6 text-left"
+            >
+              <span className="text-xs font-bold text-[#8B1E3F] uppercase tracking-[0.2em] block">
+                Professional Salon Collection
+              </span>
+              <h2 className="font-serif text-3xl sm:text-5xl font-bold text-[#111111] leading-tight">
+                Transformative Care For Salon Perfection.
+              </h2>
+              <p className="text-sm text-neutral-600 leading-relaxed font-normal">
+                Curated especially for professional salons, hair stylists, and beauty connoisseurs. Experience keratin treatments, scalp detox serums, and intense hydration masks delivered directly from authorized manufacturers.
+              </p>
+              <div className="pt-2">
+                <Link
+                  href="/products?category=salon-professional-products"
+                  className="inline-flex items-center space-x-2 bg-[#111111] hover:bg-[#8B1E3F] text-white px-7 py-3.5 rounded-full text-xs font-bold uppercase tracking-widest transition-all shadow-md"
+                >
+                  <span>Shop Salon Products</span>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* --------------------------------------------------------------------- */}
+      {/* 3. LIFESTYLE CATEGORIES GRID WITH MODEL IMAGES */}
+      {/* --------------------------------------------------------------------- */}
+      <section className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div className="text-center space-y-3 max-w-2xl mx-auto">
+          <span className="text-xs font-bold text-[#8B1E3F] uppercase tracking-[0.2em] block">Curated Taxonomy</span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#111111]">Explore Beauty Categories</h2>
+          <p className="text-xs sm:text-sm text-neutral-500">Discover 175+ luxury products across salon, hair care, skin care, makeup, and tools.</p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Category 1: Salon Professional */}
+          <Link href="/products?category=salon-professional-products" className="group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg block">
+            <img
+              src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=800&q=80"
+              alt="Salon Professional Category"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
+              <span className="text-[10px] uppercase font-bold tracking-widest text-[#E5C384] block">35 Products</span>
+              <h3 className="font-serif text-2xl font-bold">Salon Professional</h3>
+              <span className="text-xs text-neutral-300 font-medium block">L'Oréal, Schwarzkopf, Matrix, Olaplex</span>
+            </div>
+          </Link>
+
+          {/* Category 2: Hair Care & Hair Color */}
+          <Link href="/products?category=hair-care-hair-color" className="group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg block">
+            <img
+              src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=800&q=80"
+              alt="Hair Care & Color Category"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
+              <span className="text-[10px] uppercase font-bold tracking-widest text-[#E5C384] block">35 Products</span>
+              <h3 className="font-serif text-2xl font-bold">Hair Care & Color</h3>
+              <span className="text-xs text-neutral-300 font-medium block">Shampoos, Masks, Serums, Colors</span>
+            </div>
+          </Link>
+
+          {/* Category 3: Skin Care & Facial Kits */}
+          <Link href="/products?category=skin-care-facial-kits" className="group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg block">
+            <img
+              src="https://images.unsplash.com/photo-1567928269937-ae1465228514?w=800&q=80"
+              alt="Skin Care Category"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
+              <span className="text-[10px] uppercase font-bold tracking-widest text-[#E5C384] block">35 Products</span>
+              <h3 className="font-serif text-2xl font-bold">Skin Care & Facials</h3>
+              <span className="text-xs text-neutral-300 font-medium block">O3+ Kits, Serums, Sunscreens, Cleansers</span>
+            </div>
+          </Link>
+
+          {/* Category 4: Branded Cosmetics */}
+          <Link href="/products?category=branded-cosmetics-makeup" className="group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg block sm:col-span-1 lg:col-span-1">
+            <img
+              src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&q=80"
+              alt="Branded Cosmetics Category"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
+              <span className="text-[10px] uppercase font-bold tracking-widest text-[#E5C384] block">35 Products</span>
+              <h3 className="font-serif text-2xl font-bold">Branded Cosmetics</h3>
+              <span className="text-xs text-neutral-300 font-medium block">Maybelline, Lakmé, Sugar, Colorbar</span>
+            </div>
+          </Link>
+
+          {/* Category 5: Beauty Tools */}
+          <Link href="/products?category=beauty-accessories-tools" className="group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg block sm:col-span-2 lg:col-span-2">
+            <img
+              src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1000&q=80"
+              alt="Beauty Tools Category"
+              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute bottom-6 left-6 right-6 text-white space-y-1">
+              <span className="text-[10px] uppercase font-bold tracking-widest text-[#E5C384] block">35 Products</span>
+              <h3 className="font-serif text-2xl sm:text-3xl font-bold">Beauty Accessories & Salon Tools</h3>
+              <span className="text-xs text-neutral-300 font-medium block">Vega Professional Dryers, Straighteners, Steamers, Scissors & Brushes</span>
+            </div>
+          </Link>
+        </div>
+      </section>
+
+      {/* --------------------------------------------------------------------- */}
+      {/* 4. PROMOTIONAL FEATURED BANNER */}
+      {/* --------------------------------------------------------------------- */}
+      <section className="relative py-20 bg-[#111827] text-white overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-30">
+          <img src="https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?w=1600&q=80" alt="Promotional Banner Background" className="w-full h-full object-cover" />
+        </div>
+        <div className="relative z-10 max-w-5xl mx-auto px-4 text-center space-y-6">
+          <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#E5C384]">Special Indore Offer</span>
+          <h2 className="font-serif text-3xl sm:text-5xl font-extrabold tracking-tight">Glow Like Never Before.</h2>
+          <p className="text-xs sm:text-sm text-neutral-300 max-w-xl mx-auto font-light">
+            Use code <strong className="text-white underline">GAZAB10</strong> at checkout to get flat 10% OFF on all orders above ₹500. Free express delivery in Indore.
+          </p>
+          <div>
+            <Link href="/products" className="bg-[#8B1E3F] hover:bg-[#A3244B] text-white font-bold px-8 py-3.5 rounded-full text-xs uppercase tracking-widest transition-all inline-block shadow-lg">
+              Claim Offer Now
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* --------------------------------------------------------------------- */}
+      {/* 5. BEST SELLERS PRODUCT GRID */}
+      {/* --------------------------------------------------------------------- */}
+      <section className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div className="flex flex-wrap justify-between items-end gap-4 border-b border-[#EAEAEA] pb-6">
+          <div className="space-y-1">
+            <span className="text-xs font-bold text-[#8B1E3F] uppercase tracking-[0.2em] block">Top Rated</span>
+            <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#111111]">Best Selling Products</h2>
+          </div>
+          <Link href="/products" className="text-xs font-bold text-[#111111] hover:text-[#8B1E3F] uppercase tracking-wider flex items-center space-x-1">
+            <span>View All 175 Items</span>
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </section>
 
-      {/* Best Seller Products Section */}
-      <section className="bg-[#F8F8F8] py-16 border-y border-[#E5E7EB]">
-        <div className="max-w-7xl mx-auto px-4 space-y-8">
-          <div className="flex flex-wrap justify-between items-end gap-4">
-            <div className="space-y-1">
-              <span className="text-[10px] font-bold text-[#8B1E3F] uppercase tracking-[0.2em] block">
-                Top Rated Formulas
+      {/* --------------------------------------------------------------------- */}
+      {/* 6. AUTHORIZED BRANDS SLIDER / LOGO GRID */}
+      {/* --------------------------------------------------------------------- */}
+      <section className="py-16 bg-[#F9F8F6] border-y border-[#EAEAEA]">
+        <div className="max-w-7xl mx-auto px-4 text-center space-y-8">
+          <span className="text-xs font-bold text-neutral-400 uppercase tracking-[0.25em] block">
+            Authorized Brand Partners
+          </span>
+          <div className="flex flex-wrap items-center justify-center gap-8 sm:gap-14 opacity-80">
+            {brandLogos.map((brand, i) => (
+              <span key={i} className="font-serif text-lg sm:text-2xl font-extrabold tracking-wider text-neutral-800 hover:text-[#8B1E3F] transition-colors">
+                {brand}
               </span>
-              <h2 className="font-serif text-3xl font-extrabold text-[#111111]">
-                Best Sellers & Salon Favorites
-              </h2>
-            </div>
-            <Link
-              href="/products"
-              className="text-xs font-semibold text-[#111111] hover:text-[#8B1E3F] uppercase tracking-wider flex items-center space-x-1"
-            >
-              <span>View All Products</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {products.map((product, idx) => (
-              <motion.div
-                key={product.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: idx * 0.1 }}
-              >
-                <ProductCard product={product} />
-              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Beauty Journal Blog Highlights */}
-      <section className="max-w-7xl mx-auto px-4 space-y-8">
-        <div className="text-center space-y-2">
-          <span className="text-[10px] font-bold text-[#8B1E3F] uppercase tracking-[0.2em] block">
-            Expert Insights
-          </span>
-          <h2 className="font-serif text-3xl font-extrabold text-[#111111]">
-            Beauty & Salon Journal
-          </h2>
+      {/* --------------------------------------------------------------------- */}
+      {/* 7. CUSTOMER TESTIMONIALS / REVIEWS */}
+      {/* --------------------------------------------------------------------- */}
+      <section className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div className="text-center space-y-3 max-w-2xl mx-auto">
+          <span className="text-xs font-bold text-[#8B1E3F] uppercase tracking-[0.2em] block">Client Feedback</span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold text-[#111111]">Loved By Salons & Beauty Connoisseurs</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="luxury-card overflow-hidden p-6 space-y-3"
-          >
-            <span className="text-[10px] font-bold text-[#8B1E3F] uppercase tracking-wider">Hair Care Tips</span>
-            <Link href="/blog/top-5-salon-hair-masks-damaged-hair-indore">
-              <h3 className="font-serif text-xl font-bold text-[#111111] hover:text-[#8B1E3F] transition-colors">
-                Top 5 Salon Professional Hair Care Masks for Damaged Hair in Indore
-              </h3>
-            </Link>
-            <p className="text-xs text-[#6B7280] leading-relaxed">
-              Discover expert tips from salon professionals on choosing deep conditioning hair repair masks for chemically straightened and color-treated hair.
-            </p>
-          </motion.div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {testimonials.map((t) => (
+            <div key={t.id} className="bg-white border border-[#EAEAEA] rounded-2xl p-6 space-y-4 shadow-sm hover:border-[#8B1E3F] transition-all">
+              <div className="flex items-center space-x-1 text-[#D97706]">
+                {[...Array(t.rating)].map((_, i) => (
+                  <Star key={i} className="w-4 h-4 fill-current" />
+                ))}
+              </div>
+              <p className="text-xs text-neutral-600 leading-relaxed italic">"{t.comment}"</p>
+              <div className="flex items-center space-x-3 pt-2 border-t border-[#EAEAEA]">
+                <img src={t.avatar} alt={t.name} className="w-10 h-10 rounded-full object-cover" />
+                <div className="text-left leading-tight">
+                  <span className="font-bold text-xs text-[#111111] block">{t.name}</span>
+                  <span className="text-[10px] text-neutral-400 font-medium">{t.role}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="luxury-card overflow-hidden p-6 space-y-3"
-          >
-            <span className="text-[10px] font-bold text-[#8B1E3F] uppercase tracking-wider">Skin Care & Facials</span>
-            <Link href="/blog/guide-to-o3-professional-facial-kits-bridal-glow">
-              <h3 className="font-serif text-xl font-bold text-[#111111] hover:text-[#8B1E3F] transition-colors">
-                Complete Guide to O3+ Professional Facial Kits for Bridal Glow
-              </h3>
-            </Link>
-            <p className="text-xs text-[#6B7280] leading-relaxed">
-              Step-by-step breakdown of O3+ brightening facial treatment pods used by top beauty parlors and bridal makeup artists across MP.
-            </p>
-          </motion.div>
+      {/* --------------------------------------------------------------------- */}
+      {/* 8. WHY CHOOSE US VALUE PROPOSITIONS */}
+      {/* --------------------------------------------------------------------- */}
+      <section className="py-16 bg-[#111111] text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div className="space-y-2">
+            <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mx-auto text-[#E5C384]">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+            <h4 className="font-bold text-xs uppercase tracking-wider">100% Genuine Products</h4>
+            <p className="text-[11px] text-neutral-400">Direct from authorized brand distributors.</p>
+          </div>
+
+          <div className="space-y-2">
+            <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mx-auto text-[#E5C384]">
+              <Truck className="w-6 h-6" />
+            </div>
+            <h4 className="font-bold text-xs uppercase tracking-wider">Fast Local Delivery</h4>
+            <p className="text-[11px] text-neutral-400">Same-day dispatch across Indore MP.</p>
+          </div>
+
+          <div className="space-y-2">
+            <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mx-auto text-[#E5C384]">
+              <RefreshCw className="w-6 h-6" />
+            </div>
+            <h4 className="font-bold text-xs uppercase tracking-wider">Easy Returns</h4>
+            <p className="text-[11px] text-neutral-400">Hassle-free 7-day return policy.</p>
+          </div>
+
+          <div className="space-y-2">
+            <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center mx-auto text-[#E5C384]">
+              <Headphones className="w-6 h-6" />
+            </div>
+            <h4 className="font-bold text-xs uppercase tracking-wider">Expert Support</h4>
+            <p className="text-[11px] text-neutral-400">WhatsApp consultation for salon orders.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* --------------------------------------------------------------------- */}
+      {/* 9. NEWSLETTER SUBSCRIPTION SECTION */}
+      {/* --------------------------------------------------------------------- */}
+      <section className="relative py-20 bg-neutral-900 text-white overflow-hidden">
+        <div className="absolute inset-0 z-0 opacity-25">
+          <img src="https://images.unsplash.com/photo-1522337094846-8a8385875974?w=1600&q=80" alt="Newsletter Background" className="w-full h-full object-cover" />
+        </div>
+
+        <div className="relative z-10 max-w-3xl mx-auto px-4 text-center space-y-6">
+          <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#E5C384]">Join Beauty Insider</span>
+          <h2 className="font-serif text-3xl sm:text-4xl font-bold">Subscribe For Exclusive Salon Offers</h2>
+          <p className="text-xs sm:text-sm text-neutral-300 font-light">
+            Get early access to new brand arrivals, salon wholesale discounts, and beauty tips directly in your inbox.
+          </p>
+
+          <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+            <input
+              type="email"
+              required
+              placeholder="Enter your email address..."
+              value={newsletterEmail}
+              onChange={(e) => setNewsletterEmail(e.target.value)}
+              className="flex-1 bg-white/10 border border-white/20 rounded-full px-5 py-3 text-xs text-white placeholder-neutral-400 focus:outline-none focus:border-[#E5C384]"
+            />
+            <button
+              type="submit"
+              className="bg-white hover:bg-[#E5C384] text-[#111111] font-bold px-8 py-3 rounded-full text-xs uppercase tracking-widest transition-all"
+            >
+              Subscribe
+            </button>
+          </form>
+
+          {subscribed && (
+            <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-xs font-bold text-[#E5C384]">
+              Thank you for subscribing to Lucky's GAZAB beauty newsletter!
+            </motion.p>
+          )}
         </div>
       </section>
     </div>
