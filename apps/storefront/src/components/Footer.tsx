@@ -87,6 +87,19 @@ export function Footer() {
             <Link href="/privacy-policy" className="hover:text-neutral-300">Terms & Conditions</Link>
           </div>
         </div>
+
+        {/* Developer Credit */}
+        <div className="mt-5 pt-4 border-t border-[#E5E7EB]/20 text-center text-[13px] sm:text-sm text-[#94A3B8] font-medium">
+          Developed by{' '}
+          <a
+            href="https://infynuxsolutions.in/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-[#94A3B8] hover:text-[#2563EB] font-semibold transition-colors duration-200"
+          >
+            Infynux Solutions
+          </a>
+        </div>
       </div>
     </footer>
   );

@@ -134,13 +134,26 @@ export function Sidebar({ activeTab, setActiveTab, isMobileOpen = false, setIsMo
         </div>
       </div>
 
-      {/* Role Badge Footer */}
-      <div className="pt-3 border-t border-[#374151] text-[10px] text-[#CBD5E1] px-2 flex items-center justify-between">
+      {/* Role Badge Footer & Developer Credit */}
+      <div className="pt-3 border-t border-[#374151] text-[10px] text-[#CBD5E1] px-2 space-y-2">
         {(!isCollapsed || isMobileOpen) ? (
-          <div className="flex items-center space-x-2 truncate">
-            <div className="w-2 h-2 rounded-full bg-[#16A34A]" />
-            <span className="truncate font-semibold text-[#E5E7EB]">{GROUND_TRUTH_DATA.email}</span>
-          </div>
+          <>
+            <div className="flex items-center space-x-2 truncate">
+              <div className="w-2 h-2 rounded-full bg-[#16A34A]" />
+              <span className="truncate font-semibold text-[#E5E7EB]">{GROUND_TRUTH_DATA.email}</span>
+            </div>
+            <div className="text-[10px] text-[#94A3B8] pt-1.5 border-t border-[#374151]/50 text-center font-medium">
+              Powered & Developed by{' '}
+              <a
+                href="https://infynuxsolutions.in/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#94A3B8] hover:text-[#2563EB] font-semibold transition-colors duration-200"
+              >
+                Infynux Solutions
+              </a>
+            </div>
+          </>
         ) : (
           <div className="w-2 h-2 rounded-full bg-[#16A34A] mx-auto" />
         )}
