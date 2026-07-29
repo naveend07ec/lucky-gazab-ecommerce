@@ -17,50 +17,50 @@ export function AuditLogsPage() {
   ];
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center border-b border-slate-800 pb-4">
+    <div className="space-y-6 text-[#111827]">
+      <div className="flex justify-between items-center border-b border-[#E5E7EB] pb-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-white">Security Audit & System Health Logs</h1>
-          <p className="text-xs text-slate-400">Track admin actor actions, permission checks, IP logging, and system error traces</p>
+          <h1 className="text-2xl font-bold text-[#111827]">Security Audit & System Health Logs</h1>
+          <p className="text-xs text-[#6B7280]">Track admin actor actions, permission checks, IP logging, and system error traces</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="flex space-x-3 border-b border-slate-800 pb-2 text-xs">
+      <div className="flex space-x-3 border-b border-[#E5E7EB] pb-2 text-xs">
         <button
           onClick={() => setActiveTab('audit')}
-          className={`px-4 py-2 rounded-xl font-bold transition-all ${activeTab === 'audit' ? 'bg-brand-600 text-white' : 'text-slate-400 hover:bg-slate-900'}`}
+          className={`px-4 py-2 rounded-xl font-bold transition-all ${activeTab === 'audit' ? 'bg-[#2563EB] text-white' : 'text-[#6B7280] hover:bg-slate-100'}`}
         >
           Audit Logs ({auditLogs.length})
         </button>
         <button
           onClick={() => setActiveTab('system')}
-          className={`px-4 py-2 rounded-xl font-bold transition-all ${activeTab === 'system' ? 'bg-brand-600 text-white' : 'text-slate-400 hover:bg-slate-900'}`}
+          className={`px-4 py-2 rounded-xl font-bold transition-all ${activeTab === 'system' ? 'bg-[#2563EB] text-white' : 'text-[#6B7280] hover:bg-slate-100'}`}
         >
           System Health Logs ({systemLogs.length})
         </button>
       </div>
 
       {activeTab === 'audit' && (
-        <div className="glass-panel p-5 overflow-x-auto text-xs">
+        <div className="bg-white border border-[#E5E7EB] rounded-xl p-5 overflow-x-auto text-xs shadow-xs">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-slate-800 text-slate-400 uppercase text-[10px]">
-                <th className="py-3 px-2">Timestamp</th>
-                <th className="py-3 px-2">Actor ID</th>
-                <th className="py-3 px-2">Action Permission</th>
-                <th className="py-3 px-2">Target Entity</th>
-                <th className="py-3 px-2">IP Address</th>
+              <tr className="border-b border-[#E5E7EB] text-[#475569] uppercase font-bold text-[10px] bg-[#F8FAFC]">
+                <th className="py-3 px-3">Timestamp</th>
+                <th className="py-3 px-3">Actor ID</th>
+                <th className="py-3 px-3">Action Permission</th>
+                <th className="py-3 px-3">Target Entity</th>
+                <th className="py-3 px-3">IP Address</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-[#E5E7EB] text-[#374151]">
               {auditLogs.map((log) => (
-                <tr key={log.id} className="hover:bg-slate-900/40">
-                  <td className="py-3 px-2 font-mono text-[11px] text-slate-400">{log.date}</td>
-                  <td className="py-3 px-2 font-semibold text-white">{log.actor}</td>
-                  <td className="py-3 px-2 font-mono text-brand-300">{log.action}</td>
-                  <td className="py-3 px-2 text-slate-300">{log.entity}</td>
-                  <td className="py-3 px-2 font-mono text-slate-400">{log.ip}</td>
+                <tr key={log.id} className="hover:bg-slate-50 transition-colors">
+                  <td className="py-3 px-3 font-mono text-[11px] text-[#6B7280]">{log.date}</td>
+                  <td className="py-3 px-3 font-bold text-[#111827]">{log.actor}</td>
+                  <td className="py-3 px-3 font-mono text-[#2563EB] font-semibold">{log.action}</td>
+                  <td className="py-3 px-3 text-[#374151]">{log.entity}</td>
+                  <td className="py-3 px-3 font-mono text-[#6B7280]">{log.ip}</td>
                 </tr>
               ))}
             </tbody>
@@ -69,27 +69,27 @@ export function AuditLogsPage() {
       )}
 
       {activeTab === 'system' && (
-        <div className="glass-panel p-5 overflow-x-auto text-xs">
+        <div className="bg-white border border-[#E5E7EB] rounded-xl p-5 overflow-x-auto text-xs shadow-xs">
           <table className="w-full text-left border-collapse">
             <thead>
-              <tr className="border-b border-slate-800 text-slate-400 uppercase text-[10px]">
-                <th className="py-3 px-2">Timestamp</th>
-                <th className="py-3 px-2">Level</th>
-                <th className="py-3 px-2">Log Message</th>
-                <th className="py-3 px-2">Context</th>
+              <tr className="border-b border-[#E5E7EB] text-[#475569] uppercase font-bold text-[10px] bg-[#F8FAFC]">
+                <th className="py-3 px-3">Timestamp</th>
+                <th className="py-3 px-3">Level</th>
+                <th className="py-3 px-3">Log Message</th>
+                <th className="py-3 px-3">Context</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
+            <tbody className="divide-y divide-[#E5E7EB] text-[#374151]">
               {systemLogs.map((log) => (
-                <tr key={log.id} className="hover:bg-slate-900/40">
-                  <td className="py-3 px-2 font-mono text-[11px] text-slate-400">{log.date}</td>
-                  <td className="py-3 px-2">
-                    <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${log.level === 'INFO' ? 'bg-blue-500/20 text-blue-400 border-blue-500/30' : 'bg-amber-500/20 text-amber-400 border-amber-500/30'}`}>
+                <tr key={log.id} className="hover:bg-slate-50 transition-colors">
+                  <td className="py-3 px-3 font-mono text-[11px] text-[#6B7280]">{log.date}</td>
+                  <td className="py-3 px-3">
+                    <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full border ${log.level === 'INFO' ? 'bg-blue-50 text-[#2563EB] border-blue-200' : 'bg-amber-50 text-[#D97706] border-amber-200'}`}>
                       {log.level}
                     </span>
                   </td>
-                  <td className="py-3 px-2 font-mono text-slate-200">{log.message}</td>
-                  <td className="py-3 px-2 font-mono text-brand-300">{log.context}</td>
+                  <td className="py-3 px-3 font-mono text-[#111827]">{log.message}</td>
+                  <td className="py-3 px-3 font-mono text-[#2563EB] font-semibold">{log.context}</td>
                 </tr>
               ))}
             </tbody>

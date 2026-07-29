@@ -1,18 +1,10 @@
 import React, { useState } from 'react';
-import { BookOpen, FileText, Plus, Trash2, Edit3 } from 'lucide-react';
+import { BookOpen, Plus, Trash2, Globe } from 'lucide-react';
 
 export function CmsBlogPage() {
-  const [activeTab, setActiveTab] = useState<'blog' | 'cms'>('blog');
-
-  const [blogPosts, setBlogPosts] = useState([
-    { id: 'b1', title: 'Top 5 Salon Professional Hair Care Masks in Indore', slug: 'top-5-salon-hair-masks-damaged-hair-indore', category: 'Hair Care Tips', author: 'Lucky Matai', status: 'Published' },
-    { id: 'b2', title: 'Complete Guide to O3+ Professional Facial Kits', slug: 'guide-to-o3-professional-facial-kits-bridal-glow', category: 'Skin Care & Facials', author: 'Salon Expert', status: 'Published' }
-  ]);
-
-  const [cmsPages, setCmsPages] = useState([
-    { id: 'cms-1', title: 'Privacy Policy', slug: 'privacy-policy', status: 'Published' },
-    { id: 'cms-2', title: 'Terms & Conditions', slug: 'terms', status: 'Published' },
-    { id: 'cms-3', title: 'Shipping & Refund Policy', slug: 'shipping-policy', status: 'Published' }
+  const [posts, setPosts] = useState([
+    { id: 'p1', title: 'Top 5 Salon Professional Hair Care Masks for Damaged Hair in Indore', slug: 'top-5-salon-hair-masks-damaged-hair-indore', author: 'Beauty Editor', status: 'Published', date: '2026-07-20' },
+    { id: 'p2', title: 'Complete Guide to O3+ Professional Facial Kits for Bridal Glow', slug: 'guide-to-o3-professional-facial-kits-bridal-glow', author: 'Dermaceutical Expert', status: 'Published', date: '2026-07-15' }
   ]);
 
   const [newTitle, setNewTitle] = useState('');
@@ -21,122 +13,75 @@ export function CmsBlogPage() {
     e.preventDefault();
     if (!newTitle) return;
     const post = {
-      id: `b-${Date.now()}`,
+      id: `p-${Date.now()}`,
       title: newTitle,
       slug: newTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
-      category: 'Cosmetics Guide',
-      author: 'Lucky Matai',
-      status: 'Published'
+      author: 'Super Admin',
+      status: 'Published',
+      date: new Date().toISOString().split('T')[0]
     };
-    setBlogPosts([post, ...blogPosts]);
+    setPosts([post, ...posts]);
     setNewTitle('');
   };
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center border-b border-slate-800 pb-4">
+    <div className="space-y-6 text-[#111827]">
+      <div className="flex justify-between items-center border-b border-[#E5E7EB] pb-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-white">CMS Policy Pages & Blog Manager</h1>
-          <p className="text-xs text-slate-400">Publish beauty articles, hair care guides, and edit storefront legal policy pages</p>
+          <h1 className="text-2xl font-bold text-[#111827]">CMS & Journal Content</h1>
+          <p className="text-xs text-[#6B7280]">Publish beauty journal articles, salon care guides, and SEO content</p>
         </div>
       </div>
 
-      {/* Tabs */}
-      <div className="flex space-x-3 border-b border-slate-800 pb-2 text-xs">
-        <button
-          onClick={() => setActiveTab('blog')}
-          className={`px-4 py-2 rounded-xl font-bold transition-all ${activeTab === 'blog' ? 'bg-brand-600 text-white' : 'text-slate-400 hover:bg-slate-900'}`}
-        >
-          Blog Posts ({blogPosts.length})
+      <form onSubmit={handleAddPost} className="bg-white border border-[#E5E7EB] rounded-xl p-4 flex gap-3 text-xs items-center shadow-xs">
+        <input
+          type="text"
+          required
+          placeholder="New Article Title (e.g. Best Hair Smoothing Creams 2026)..."
+          value={newTitle}
+          onChange={(e) => setNewTitle(e.target.value)}
+          className="flex-1 bg-[#F8FAFC] border border-[#E5E7EB] rounded-lg p-2.5 text-[#111827] focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
+        />
+        <button type="submit" className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-4 py-2.5 rounded-lg font-bold text-xs flex items-center space-x-1 transition-all shadow-xs">
+          <Plus className="w-4 h-4" />
+          <span>Publish Article</span>
         </button>
-        <button
-          onClick={() => setActiveTab('cms')}
-          className={`px-4 py-2 rounded-xl font-bold transition-all ${activeTab === 'cms' ? 'bg-brand-600 text-white' : 'text-slate-400 hover:bg-slate-900'}`}
-        >
-          CMS Policy Pages ({cmsPages.length})
-        </button>
-      </div>
+      </form>
 
-      {activeTab === 'blog' && (
-        <div className="space-y-6">
-          <form onSubmit={handleAddPost} className="glass-panel p-4 flex gap-3 text-xs items-center">
-            <input
-              type="text"
-              required
-              placeholder="New Blog Post Title (e.g. 10 Hair Styling Trends for 2026)"
-              value={newTitle}
-              onChange={(e) => setNewTitle(e.target.value)}
-              className="flex-1 bg-slate-900 border border-slate-800 rounded-xl p-2.5 text-white"
-            />
-            <button type="submit" className="gradient-button px-4 py-2.5 rounded-xl font-bold text-xs flex items-center space-x-1">
-              <Plus className="w-4 h-4" />
-              <span>Publish Article</span>
-            </button>
-          </form>
-
-          <div className="glass-panel p-5 overflow-x-auto text-xs">
-            <table className="w-full text-left border-collapse">
-              <thead>
-                <tr className="border-b border-slate-800 text-slate-400 uppercase text-[10px]">
-                  <th className="py-3 px-2">Article Title</th>
-                  <th className="py-3 px-2">SEO Slug</th>
-                  <th className="py-3 px-2">Category</th>
-                  <th className="py-3 px-2">Author</th>
-                  <th className="py-3 px-2">Status</th>
-                  <th className="py-3 px-2 text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800/60 text-slate-200">
-                {blogPosts.map((p) => (
-                  <tr key={p.id} className="hover:bg-slate-900/40">
-                    <td className="py-3 px-2 font-bold text-white max-w-xs">{p.title}</td>
-                    <td className="py-3 px-2 font-mono text-brand-300">{p.slug}</td>
-                    <td className="py-3 px-2 text-slate-400">{p.category}</td>
-                    <td className="py-3 px-2 font-semibold">{p.author}</td>
-                    <td className="py-3 px-2">
-                      <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30">
-                        {p.status}
-                      </span>
-                    </td>
-                    <td className="py-3 px-2 text-right">
-                      <button onClick={() => setBlogPosts(blogPosts.filter(item => item.id !== p.id))} className="text-slate-400 hover:text-red-400 p-1">
-                        <Trash2 className="w-4 h-4" />
-                      </button>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
-
-      {activeTab === 'cms' && (
-        <div className="glass-panel p-5 overflow-x-auto text-xs">
-          <table className="w-full text-left border-collapse">
-            <thead>
-              <tr className="border-b border-slate-800 text-slate-400 uppercase text-[10px]">
-                <th className="py-3 px-2">Page Title</th>
-                <th className="py-3 px-2">Storefront Route Slug</th>
-                <th className="py-3 px-2">Status</th>
+      <div className="bg-white border border-[#E5E7EB] rounded-xl p-5 overflow-x-auto text-xs shadow-xs">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="border-b border-[#E5E7EB] text-[#475569] uppercase font-bold text-[10px] bg-[#F8FAFC]">
+              <th className="py-3 px-3">Article Title</th>
+              <th className="py-3 px-3">SEO Slug</th>
+              <th className="py-3 px-3">Author</th>
+              <th className="py-3 px-3">Status</th>
+              <th className="py-3 px-3">Published Date</th>
+              <th className="py-3 px-3 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-[#E5E7EB] text-[#374151]">
+            {posts.map((post) => (
+              <tr key={post.id} className="hover:bg-slate-50 transition-colors">
+                <td className="py-3.5 px-3 font-bold text-[#111827] max-w-md truncate">{post.title}</td>
+                <td className="py-3.5 px-3 font-mono text-[#2563EB] font-semibold max-w-xs truncate">{post.slug}</td>
+                <td className="py-3.5 px-3 text-[#6B7280]">{post.author}</td>
+                <td className="py-3.5 px-3">
+                  <span className="bg-emerald-50 text-[#16A34A] text-[10px] font-bold px-2.5 py-1 rounded-full border border-emerald-200 uppercase">
+                    {post.status}
+                  </span>
+                </td>
+                <td className="py-3.5 px-3 text-[#6B7280]">{post.date}</td>
+                <td className="py-3.5 px-3 text-right">
+                  <button onClick={() => setPosts(posts.filter(p => p.id !== post.id))} className="text-[#475569] hover:text-[#DC2626] p-1">
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-800/60 text-slate-200">
-              {cmsPages.map((page) => (
-                <tr key={page.id} className="hover:bg-slate-900/40">
-                  <td className="py-3 px-2 font-bold text-white">{page.title}</td>
-                  <td className="py-3 px-2 font-mono text-brand-300">/{page.slug}</td>
-                  <td className="py-3 px-2">
-                    <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30">
-                      {page.status}
-                    </span>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      )}
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

@@ -1,63 +1,48 @@
 import React, { useState } from 'react';
-import { Star, CheckCircle, XCircle } from 'lucide-react';
+import { Star, CheckCircle2, Trash2 } from 'lucide-react';
 
 export function ReviewsPage() {
   const [reviews, setReviews] = useState([
-    { id: 'rev-1', userName: 'Kavita Mehta', rating: 5, title: 'Best Hair Mask for Salon Hair!', comment: 'Instantly smooths dry ends.', status: 'approved' },
-    { id: 'rev-2', userName: 'Siddharth Rao', rating: 5, title: 'Instant Bridal Glow', comment: 'O3+ kit delivers genuine salon facial results.', status: 'approved' },
-    { id: 'rev-3', userName: 'Rahul K', rating: 4, title: 'Good pigment lipstick', comment: 'Long lasting formula.', status: 'pending' }
+    { id: 'r1', user: 'Vikram Singh', product: "L'Oréal Absolut Repair Hair Mask", rating: 5, comment: 'Excellent hair mask for chemically treated hair. Very fast delivery in Indore.', status: 'Approved', date: '2026-07-25' },
+    { id: 'r2', user: 'Ananya Sharma', product: 'O3+ Professional Brightening Facial Kit', rating: 5, comment: '100% genuine product. Gives bridal glow within 30 minutes.', status: 'Approved', date: '2026-07-22' }
   ]);
 
-  const updateStatus = (id: string, newStatus: string) => {
-    setReviews(reviews.map(r => r.id === id ? { ...r, status: newStatus } : r));
-  };
-
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center border-b border-slate-800 pb-4">
+    <div className="space-y-6 text-[#111827]">
+      <div className="flex justify-between items-center border-b border-[#E5E7EB] pb-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-white">Review Moderation Queue</h1>
-          <p className="text-xs text-slate-400">Approve or reject customer product reviews and star ratings</p>
+          <h1 className="text-2xl font-bold text-[#111827]">Review Moderation</h1>
+          <p className="text-xs text-[#6B7280]">Approve customer star ratings and feedback before publication</p>
         </div>
       </div>
 
-      <div className="glass-panel p-5 overflow-x-auto text-xs">
+      <div className="bg-white border border-[#E5E7EB] rounded-xl p-5 overflow-x-auto text-xs shadow-xs">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-slate-800 text-slate-400 uppercase text-[10px]">
-              <th className="py-3 px-2">Customer Name</th>
-              <th className="py-3 px-2">Rating</th>
-              <th className="py-3 px-2">Title & Comment</th>
-              <th className="py-3 px-2">Status</th>
-              <th className="py-3 px-2 text-right">Moderation Actions</th>
+            <tr className="border-b border-[#E5E7EB] text-[#475569] uppercase font-bold text-[10px] bg-[#F8FAFC]">
+              <th className="py-3 px-3">Customer</th>
+              <th className="py-3 px-3">Product Name</th>
+              <th className="py-3 px-3">Rating</th>
+              <th className="py-3 px-3">Comment</th>
+              <th className="py-3 px-3">Status</th>
+              <th className="py-3 px-3 text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800/60 text-slate-200">
+          <tbody className="divide-y divide-[#E5E7EB] text-[#374151]">
             {reviews.map((r) => (
-              <tr key={r.id} className="hover:bg-slate-900/40">
-                <td className="py-3 px-2 font-bold text-white">{r.userName}</td>
-                <td className="py-3 px-2 font-bold text-amber-400">★ {r.rating} / 5</td>
-                <td className="py-3 px-2">
-                  <span className="font-semibold text-slate-200 block">{r.title}</span>
-                  <span className="text-[10px] text-slate-400">{r.comment}</span>
-                </td>
-                <td className="py-3 px-2">
-                  <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${r.status === 'approved' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : r.status === 'rejected' ? 'bg-red-500/20 text-red-400 border-red-500/30' : 'bg-amber-500/20 text-amber-400 border-amber-500/30'}`}>
-                    {r.status.toUpperCase()}
+              <tr key={r.id} className="hover:bg-slate-50 transition-colors">
+                <td className="py-3.5 px-3 font-bold text-[#111827]">{r.user}</td>
+                <td className="py-3.5 px-3 font-medium text-[#475569]">{r.product}</td>
+                <td className="py-3.5 px-3 font-bold text-[#D97706]">{r.rating} ★</td>
+                <td className="py-3.5 px-3 text-[#374151] max-w-sm truncate">{r.comment}</td>
+                <td className="py-3.5 px-3">
+                  <span className="bg-emerald-50 text-[#16A34A] text-[10px] font-bold px-2.5 py-1 rounded-full border border-emerald-200 uppercase">
+                    {r.status}
                   </span>
                 </td>
-                <td className="py-3 px-2 text-right space-x-2">
-                  <button
-                    onClick={() => updateStatus(r.id, 'approved')}
-                    className="bg-emerald-600/80 hover:bg-emerald-600 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold"
-                  >
-                    Approve
-                  </button>
-                  <button
-                    onClick={() => updateStatus(r.id, 'rejected')}
-                    className="bg-red-600/80 hover:bg-red-600 text-white px-2.5 py-1 rounded-lg text-[10px] font-bold"
-                  >
-                    Reject
+                <td className="py-3.5 px-3 text-right">
+                  <button onClick={() => setReviews(reviews.filter(item => item.id !== r.id))} className="text-[#475569] hover:text-[#DC2626] p-1">
+                    <Trash2 className="w-4 h-4" />
                   </button>
                 </td>
               </tr>

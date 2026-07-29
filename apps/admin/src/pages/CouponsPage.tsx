@@ -1,41 +1,89 @@
 import React, { useState } from 'react';
-import { Tag, Plus, Check } from 'lucide-react';
+import { Tag, Plus, Trash2 } from 'lucide-react';
 
 export function CouponsPage() {
   const [coupons, setCoupons] = useState([
-    { id: 'c1', code: 'GAZAB10', type: 'Percentage (10%)', minCart: 999, maxDisc: 300, status: 'Active' },
-    { id: 'c2', code: 'WELCOME200', type: 'Flat Discount (₹200)', minCart: 1499, maxDisc: 200, status: 'Active' }
+    { id: 'cp1', code: 'GAZAB10', type: 'PERCENTAGE', discount: '10%', minOrder: '₹500', usage: '42 / 1000', status: 'Active' },
+    { id: 'cp2', code: 'SALON100', type: 'FLAT', discount: '₹100 OFF', minOrder: '₹1,500', usage: '18 / 500', status: 'Active' }
   ]);
 
+  const [newCode, setNewCode] = useState('');
+
+  const handleAddCoupon = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newCode) return;
+    const c = {
+      id: `cp-${Date.now()}`,
+      code: newCode.toUpperCase(),
+      type: 'PERCENTAGE',
+      discount: '15%',
+      minOrder: '₹1,000',
+      usage: '0 / 100',
+      status: 'Active'
+    };
+    setCoupons([c, ...coupons]);
+    setNewCode('');
+  };
+
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center border-b border-slate-800 pb-4">
+    <div className="space-y-6 text-[#111827]">
+      <div className="flex justify-between items-center border-b border-[#E5E7EB] pb-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-white">Coupons & Banner Manager</h1>
-          <p className="text-xs text-slate-400">Configure promotional discount codes, minimum cart values, and hero sliders</p>
+          <h1 className="text-2xl font-bold text-[#111827]">Coupons & Promotional Banners</h1>
+          <p className="text-xs text-[#6B7280]">Manage promo codes, discount percentages, minimum cart thresholds, and usage limits</p>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="glass-panel p-5 space-y-4">
-          <h3 className="text-base font-bold text-white flex items-center border-b border-slate-800 pb-3">
-            <Tag className="w-4 h-4 text-brand-400 mr-2" />
-            Active Discount Coupons
-          </h3>
-          <div className="space-y-3 text-xs">
+      <form onSubmit={handleAddCoupon} className="bg-white border border-[#E5E7EB] rounded-xl p-4 flex gap-3 text-xs items-center shadow-xs">
+        <input
+          type="text"
+          required
+          placeholder="New Promo Code (e.g. FESTIVE20)"
+          value={newCode}
+          onChange={(e) => setNewCode(e.target.value)}
+          className="flex-1 bg-[#F8FAFC] border border-[#E5E7EB] rounded-lg p-2.5 text-[#111827] focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
+        />
+        <button type="submit" className="bg-[#2563EB] hover:bg-[#1D4ED8] text-white px-4 py-2.5 rounded-lg font-bold text-xs flex items-center space-x-1 transition-all shadow-xs">
+          <Plus className="w-4 h-4" />
+          <span>Create Coupon Code</span>
+        </button>
+      </form>
+
+      <div className="bg-white border border-[#E5E7EB] rounded-xl p-5 overflow-x-auto text-xs shadow-xs">
+        <table className="w-full text-left border-collapse">
+          <thead>
+            <tr className="border-b border-[#E5E7EB] text-[#475569] uppercase font-bold text-[10px] bg-[#F8FAFC]">
+              <th className="py-3 px-3">Promo Code</th>
+              <th className="py-3 px-3">Discount Type</th>
+              <th className="py-3 px-3">Value</th>
+              <th className="py-3 px-3">Min Order</th>
+              <th className="py-3 px-3">Usage Limit</th>
+              <th className="py-3 px-3">Status</th>
+              <th className="py-3 px-3 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-[#E5E7EB] text-[#374151]">
             {coupons.map((c) => (
-              <div key={c.id} className="glass-card p-4 flex justify-between items-center">
-                <div>
-                  <span className="font-mono font-bold text-brand-300 text-sm">{c.code}</span>
-                  <p className="text-slate-400 text-[10px]">{c.type} • Min Cart: ₹{c.minCart}</p>
-                </div>
-                <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30">
-                  {c.status}
-                </span>
-              </div>
+              <tr key={c.id} className="hover:bg-slate-50 transition-colors">
+                <td className="py-3.5 px-3 font-mono font-bold text-[#2563EB]">{c.code}</td>
+                <td className="py-3.5 px-3 font-medium text-[#475569]">{c.type}</td>
+                <td className="py-3.5 px-3 font-bold text-[#111827]">{c.discount}</td>
+                <td className="py-3.5 px-3 text-[#374151]">{c.minOrder}</td>
+                <td className="py-3.5 px-3 font-mono text-[#6B7280]">{c.usage}</td>
+                <td className="py-3.5 px-3">
+                  <span className="bg-emerald-50 text-[#16A34A] text-[10px] font-bold px-2.5 py-1 rounded-full border border-emerald-200 uppercase">
+                    {c.status}
+                  </span>
+                </td>
+                <td className="py-3.5 px-3 text-right">
+                  <button onClick={() => setCoupons(coupons.filter(item => item.id !== c.id))} className="text-[#475569] hover:text-[#DC2626] p-1">
+                    <Trash2 className="w-4 h-4" />
+                  </button>
+                </td>
+              </tr>
             ))}
-          </div>
-        </div>
+          </tbody>
+        </table>
       </div>
     </div>
   );

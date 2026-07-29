@@ -1,68 +1,66 @@
 import React, { useState } from 'react';
-import { Users, ShieldAlert, CheckCircle2, MessageSquare } from 'lucide-react';
+import { Users, Search, Mail, Phone, ShoppingBag } from 'lucide-react';
 
 export function CustomersPage() {
-  const [customers, setCustomers] = useState([
-    { id: 'usr-1', name: 'Ananya Sharma', email: 'ananya@example.com', phone: '9826012345', ordersCount: 3, totalSpent: 2840, status: 'active' },
-    { id: 'usr-2', name: 'Rajesh Verma (Salon B2B)', email: 'rajesh.salon@example.com', phone: '9926088888', ordersCount: 8, totalSpent: 42500, status: 'active' }
-  ]);
+  const [searchTerm, setSearchTerm] = useState('');
 
-  const toggleBlockStatus = (id: string) => {
-    setCustomers(customers.map(c => c.id === id ? { ...c, status: c.status === 'active' ? 'blocked' : 'active' } : c));
-  };
+  const customers = [
+    { id: 'c1', name: 'Ananya Sharma', email: 'ananya@example.com', phone: '9826011223', ordersCount: 5, totalSpent: '₹4,650', status: 'Active VIP' },
+    { id: 'c2', name: 'Vikram Singh', email: 'vikram@example.com', phone: '9893044556', ordersCount: 3, totalSpent: '₹3,870', status: 'Active' },
+    { id: 'c3', name: 'Pooja Verma', email: 'pooja@example.com', phone: '9926088776', ordersCount: 1, totalSpent: '₹460', status: 'Active' }
+  ];
 
   return (
-    <div className="space-y-6">
-      <div className="flex justify-between items-center border-b border-slate-800 pb-4">
+    <div className="space-y-6 text-[#111827]">
+      <div className="flex justify-between items-center border-b border-[#E5E7EB] pb-4">
         <div>
-          <h1 className="text-2xl font-extrabold text-white">Customer Profiles & Support</h1>
-          <p className="text-xs text-slate-400">View customer order histories, toggle account block status, and reply to support tickets</p>
+          <h1 className="text-2xl font-bold text-[#111827]">Customers & CRM</h1>
+          <p className="text-xs text-[#6B7280]">Customer profiles, order histories, total spending, and VIP tier tracking</p>
         </div>
       </div>
 
-      <div className="glass-panel p-5 overflow-x-auto text-xs">
+      <div className="bg-white border border-[#E5E7EB] rounded-xl p-4 flex items-center justify-between shadow-xs">
+        <div className="relative w-72">
+          <input
+            type="text"
+            placeholder="Search customer name, email, phone..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full bg-[#F8FAFC] border border-[#E5E7EB] rounded-lg py-2 pl-9 pr-3 text-xs text-[#111827] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
+          />
+          <Search className="w-4 h-4 text-[#475569] absolute left-3 top-1/2 -translate-y-1/2" />
+        </div>
+      </div>
+
+      <div className="bg-white border border-[#E5E7EB] rounded-xl p-5 overflow-x-auto text-xs shadow-xs">
         <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-slate-800 text-slate-400 uppercase text-[10px]">
-              <th className="py-3 px-2">Customer Name</th>
-              <th className="py-3 px-2">Contact Email / Phone</th>
-              <th className="py-3 px-2">Total Orders</th>
-              <th className="py-3 px-2">Lifetime Value</th>
-              <th className="py-3 px-2">Account Status</th>
-              <th className="py-3 px-2 text-right">Actions</th>
+            <tr className="border-b border-[#E5E7EB] text-[#475569] uppercase font-bold text-[10px] bg-[#F8FAFC]">
+              <th className="py-3 px-3">Customer Name</th>
+              <th className="py-3 px-3">Email Address</th>
+              <th className="py-3 px-3">Phone Number</th>
+              <th className="py-3 px-3 text-center">Orders</th>
+              <th className="py-3 px-3 text-right">Total Spent</th>
+              <th className="py-3 px-3">VIP Tier Status</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800/60 text-slate-200">
-            {customers.map((c) => (
-              <tr key={c.id} className="hover:bg-slate-900/40">
-                <td className="py-3 px-2 font-bold text-white">{c.name}</td>
-                <td className="py-3 px-2">
-                  <span className="block">{c.email}</span>
-                  <span className="text-[10px] text-slate-400">{c.phone}</span>
-                </td>
-                <td className="py-3 px-2 font-semibold">{c.ordersCount} orders</td>
-                <td className="py-3 px-2 font-extrabold text-emerald-400">₹{c.totalSpent}</td>
-                <td className="py-3 px-2">
-                  {c.status === 'active' ? (
-                    <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-emerald-500/30">
-                      ACTIVE
+          <tbody className="divide-y divide-[#E5E7EB] text-[#374151]">
+            {customers
+              .filter(c => c.name.toLowerCase().includes(searchTerm.toLowerCase()) || c.email.toLowerCase().includes(searchTerm.toLowerCase()))
+              .map((c) => (
+                <tr key={c.id} className="hover:bg-slate-50 transition-colors">
+                  <td className="py-3.5 px-3 font-bold text-[#111827]">{c.name}</td>
+                  <td className="py-3.5 px-3 font-medium text-[#475569]">{c.email}</td>
+                  <td className="py-3.5 px-3 font-mono text-[#475569]">{c.phone}</td>
+                  <td className="py-3.5 px-3 font-semibold text-center text-[#111827]">{c.ordersCount}</td>
+                  <td className="py-3.5 px-3 font-extrabold text-[#111827] text-right">{c.totalSpent}</td>
+                  <td className="py-3.5 px-3">
+                    <span className="bg-emerald-50 text-[#16A34A] text-[10px] font-bold px-2.5 py-1 rounded-full border border-emerald-200 uppercase">
+                      {c.status}
                     </span>
-                  ) : (
-                    <span className="bg-red-500/20 text-red-400 text-[10px] font-bold px-2 py-0.5 rounded-full border border-red-500/30">
-                      BLOCKED
-                    </span>
-                  )}
-                </td>
-                <td className="py-3 px-2 text-right">
-                  <button
-                    onClick={() => toggleBlockStatus(c.id)}
-                    className="bg-slate-900 hover:bg-slate-800 text-xs text-slate-300 border border-slate-800 px-3 py-1 rounded-lg"
-                  >
-                    {c.status === 'active' ? 'Block Account' : 'Unblock Account'}
-                  </button>
-                </td>
-              </tr>
-            ))}
+                  </td>
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
