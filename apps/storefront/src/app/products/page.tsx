@@ -8,7 +8,7 @@ export default async function ProductsListingPage({
 }: {
   searchParams?: { category?: string; brand?: string; search?: string };
 }) {
-  const products = await fetchProducts(searchParams);
+  const products = await fetchProducts(searchParams?.category, searchParams?.search);
 
   return (
     <div className="bg-white min-h-screen py-12">

@@ -37,211 +37,167 @@ export const initialFallbackProducts: ProductItem[] = [
   // Salon Professional Products
   {
     id: 'sp-1',
-    name: "L'Oréal Professionnel X-Tenso Oleoshape Smoothing Cream",
+    name: "L'Oréal Professionnel X-Tenso Oleoshape Smoothing Cream (400g)",
     slug: 'loreal-xtenso-oleoshape-smoothing-cream',
     brand: "L'Oréal Professionnel",
     category: 'Salon Professional Products',
     sku: 'LOR-XTENSO-CREAM-400',
-    shortDescription: 'Professional salon hair straightening and smoothing cream system.',
-    description: 'Transform unruly hair into silky smooth straightened hair with Nutri-Cationic technology.',
-    highlights: ['Nutri-Cationic Formula', 'Long-lasting salon straightening', 'Frizz control'],
-    benefits: ['Smooth hair', 'Mirror shine'],
-    ingredients: 'Aqua, Thioglycolic Acid, Cetearyl Alcohol.',
-    usageInstructions: 'For professional salon use only with Neutralizer cream.',
+    shortDescription: 'Professional hair straightening & smoothing cream for resistant hair.',
+    description: 'Transform frizzy, unmanageable hair into silky smooth, salon-perfect locks with L\'Oréal Professionnel X-Tenso Oleoshape.',
+    highlights: ['Thio technology for long-lasting straightening', 'Enriched with nourishing oils', 'Low odor formulation'],
+    benefits: ['Straightens resistant curls', 'Adds radiant shine', 'Reduces hair breakage'],
+    ingredients: 'Aqua, Thioglycolic Acid, Cetearyl Alcohol, Ammonium Hydroxide, Mineral Oil.',
+    usageInstructions: 'For professional salon use only. Apply cream evenly on washed, towel-dried hair.',
     mrp: 1250,
     sellingPrice: 1099,
     discountPercent: 12,
     avgRating: 4.9,
-    reviewCount: 42,
-    images: [{ url: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&q=80', altText: "L'Oréal X-Tenso", isPrimary: true }],
-    variants: [{ id: 'v-sp1', sku: 'LOR-XTENSO-CREAM-400', size: '400ml', mrp: 1250, sellingPrice: 1099, stock: 35 }]
+    reviewCount: 142,
+    images: [{ url: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&q=80', altText: 'Loreal Xtenso', isPrimary: true }],
+    variants: [{ id: 'v-sp1-1', sku: 'LOR-XTENSO-CREAM-400', size: '400g', mrp: 1250, sellingPrice: 1099, stock: 45 }]
   },
   {
     id: 'sp-2',
-    name: 'Schwarzkopf Bonacure Keratin Smooth Perfect Treatment',
-    slug: 'schwarzkopf-bonacure-keratin-smooth-treatment',
+    name: 'Schwarzkopf Professional Bonacure Peptide Repair Rescue Mask',
+    slug: 'schwarzkopf-bonacure-repair-rescue-mask',
     brand: 'Schwarzkopf Professional',
     category: 'Salon Professional Products',
-    sku: 'SCH-KER-SMOOTH-200',
-    shortDescription: 'Deep nourishing salon treatment for frizzy hair.',
-    description: 'Intensified keratin treatment that tames unruly hair and protects against humidity.',
-    highlights: ['Keratin-infused', 'Anti-humidity barrier', 'Silky manageability'],
-    benefits: ['Frizz-free smoothness', 'Heat protection'],
-    ingredients: 'Aqua, Hydrolyzed Keratin.',
-    usageInstructions: 'Apply to wet hair, leave 5-10 mins, rinse.',
-    mrp: 1100,
-    sellingPrice: 960,
-    discountPercent: 13,
+    sku: 'SCH-BON-REPAIR-MASK',
+    shortDescription: 'Reconstructive salon mask for severely damaged, over-processed hair.',
+    description: 'Schwarzkopf BC Bonacure Repair Rescue Treatment deeply reconstructs damaged inner and outer hair structure.',
+    highlights: ['Peptide repair technology', 'Restores elasticity', 'Rebuilds hair cortex'],
+    benefits: ['Intensive hair repair', 'Reduces split ends by 95%', 'Protects against heat'],
+    ingredients: 'Aqua, Cetearyl Alcohol, Isopropyl Myristate, Behenamidopropyl Dimethylamine, Peptides.',
+    usageInstructions: 'Apply to towel-dried hair after shampooing. Leave in for 5-10 minutes and rinse thoroughly.',
+    mrp: 1150,
+    sellingPrice: 975,
+    discountPercent: 15,
     avgRating: 4.8,
-    reviewCount: 28,
-    images: [{ url: 'https://images.unsplash.com/photo-1535585209827-a15fcdbc4c2d?w=800&q=80', altText: 'Schwarzkopf Keratin', isPrimary: true }],
-    variants: [{ id: 'v-sp2', sku: 'SCH-KER-SMOOTH-200', size: '200ml', mrp: 1100, sellingPrice: 960, stock: 40 }]
+    reviewCount: 98,
+    images: [{ url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80', altText: 'Schwarzkopf Mask', isPrimary: true }],
+    variants: [{ id: 'v-sp2-1', sku: 'SCH-BON-REPAIR-MASK', size: '200ml', mrp: 1150, sellingPrice: 975, stock: 60 }]
   },
-
-  // Hair Care & Hair Color
   {
     id: 'hc-1',
-    name: "L'Oréal Professionnel Absolut Repair Hair Mask",
-    slug: 'loreal-absolut-repair-mask',
+    name: "L'Oréal Professionnel Absolut Repair Hair Mask (250ml)",
+    slug: 'loreal-absolut-repair-mask-250',
     brand: "L'Oréal Professionnel",
     category: 'Hair Care & Hair Color',
     sku: 'LOR-ABS-MASK-250',
-    shortDescription: 'Professional nourishing hair mask for damaged and dry hair.',
-    description: 'Expert nourishing hair mask enriched with Gold Quinoa and Wheat Protein.',
-    highlights: ['Gold Quinoa + Protein', '13x more damage resistance', 'Salon deep conditioning'],
-    benefits: ['Deep repair', 'Shine booster', 'Frizz control'],
-    ingredients: 'Aqua, Gold Quinoa Extract, Hydrolyzed Wheat Protein.',
-    usageInstructions: 'Apply evenly to towel-dried hair. Leave on 3-5 mins, rinse.',
+    shortDescription: 'Deep repair hair mask for damaged and weak hair fibers.',
+    description: 'Enriched with Gold Quinoa and Wheat Protein, this mask reduces hair surface damages by 77%.',
+    highlights: ['Gold Quinoa Extract', 'Instant shine restoration', 'Lightweight creamy butter texture'],
+    benefits: ['77% less damaged hair', '7x shinier hair finish', 'Soft feathertouch feel'],
+    ingredients: 'Aqua, Cetearyl Alcohol, Behentrimonium Chloride, Quinoa Seed Extract, Hydrolyzed Wheat Protein.',
+    usageInstructions: 'Apply to washed and towel-dried hair. Leave on for 3 to 5 minutes. Rinse thoroughly.',
     mrp: 950,
     sellingPrice: 855,
     discountPercent: 10,
     avgRating: 4.8,
-    reviewCount: 34,
-    images: [{ url: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&q=80', altText: "L'Oréal Hair Mask", isPrimary: true }],
-    variants: [{ id: 'v-hc1', sku: 'LOR-ABS-MASK-250', size: '250ml', mrp: 950, sellingPrice: 855, stock: 45 }]
+    reviewCount: 160,
+    images: [{ url: 'https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&q=80', altText: 'Loreal Mask 250ml', isPrimary: true }],
+    variants: [{ id: 'v-hc1-1', sku: 'LOR-ABS-MASK-250', size: '250ml', mrp: 950, sellingPrice: 855, stock: 50 }]
   },
-  {
-    id: 'hc-2',
-    name: 'Schwarzkopf Igora Royal Hair Color Shade 5-0',
-    slug: 'schwarzkopf-igora-royal-shade-5-0',
-    brand: 'Schwarzkopf Professional',
-    category: 'Hair Care & Hair Color',
-    sku: 'SCH-IGORA-5-0',
-    shortDescription: 'Permanent salon hair color cream with maximum coverage.',
-    description: 'Schwarzkopf Igora Royal delivers 100% white hair coverage with unmatched color intensity.',
-    highlights: ['100% Grey Coverage', 'Long-lasting color brilliance', 'High definition shine'],
-    benefits: ['True to swatch tone', 'Luminous shine'],
-    ingredients: 'Aqua, Cetearyl Alcohol, Ammonium Hydroxide.',
-    usageInstructions: 'Mix 1:1 with developer. Apply for 30-45 minutes.',
-    mrp: 525,
-    sellingPrice: 460,
-    discountPercent: 12,
-    avgRating: 4.7,
-    reviewCount: 18,
-    images: [{ url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80', altText: 'Schwarzkopf Igora', isPrimary: true }],
-    variants: [{ id: 'v-hc2', sku: 'SCH-IGORA-5-0', shade: '5-0 Light Brown', size: '60ml', mrp: 525, sellingPrice: 460, stock: 60 }]
-  },
-
-  // Skin Care & Facial Kits
   {
     id: 'sc-1',
-    name: 'O3+ Professional Brightening Facial Kit',
+    name: 'O3+ Professional Brightening Facial Kit for Radiant Glow',
     slug: 'o3-professional-brightening-facial-kit',
     brand: 'O3+ Professional',
     category: 'Skin Care & Facial Kits',
     sku: 'O3-BRIGHT-FACIAL-KIT',
-    shortDescription: 'Dermatologist tested salon professional facial kit for glowing skin.',
-    description: 'Award-winning O3+ facial treatment kit designed for salon professionals.',
-    highlights: ['Reduces pigmentation', 'Instant glow effect', 'Hygiene packed pods'],
-    benefits: ['Even skin tone', 'Radiant glow'],
-    ingredients: 'Vitamin C, Niacinamide, Milk Protein.',
-    usageInstructions: 'Follow 5-step process.',
+    shortDescription: 'Dermatologist recommended 5-step bridal brightening facial kit.',
+    description: 'O3+ Brightening Facial Kit provides deep pore cleansing, pigmentation reduction, and instant glow for special occasions.',
+    highlights: ['5 Single-use treatment pods', 'Suitable for all skin types', 'Dermatologically tested'],
+    benefits: ['Evens skin tone', 'Removes sun tan', 'Instant 30-minute bridal glow'],
+    ingredients: 'Milk Cleanser, Micro Derma Peel, Whitening Cream, Brightening Face Mask.',
+    usageInstructions: 'Follow Steps 1 through 5 sequentially as labeled on the individual sachets.',
     mrp: 1450,
     sellingPrice: 1290,
     discountPercent: 11,
     avgRating: 4.9,
-    reviewCount: 52,
-    images: [{ url: 'https://images.unsplash.com/photo-1567928269937-ae1465228514?w=800&q=80', altText: 'O3+ Facial Kit', isPrimary: true }],
-    variants: [{ id: 'v-sc1', sku: 'O3-BRIGHT-FACIAL-KIT', size: 'Single Pack (125g)', mrp: 1450, sellingPrice: 1290, stock: 30 }]
+    reviewCount: 290,
+    images: [{ url: 'https://images.unsplash.com/photo-1567928269937-ae1465228514?w=800&q=80', altText: 'O3 Facial Kit', isPrimary: true }],
+    variants: [{ id: 'v-sc1-1', sku: 'O3-BRIGHT-FACIAL-KIT', size: 'Single Pack 50g', mrp: 1450, sellingPrice: 1290, stock: 65 }]
   },
-  {
-    id: 'sc-2',
-    name: 'Lotus Herbals Safe Sun UV Screen Matte GEL SPF 50',
-    slug: 'lotus-herbals-safe-sun-matte-gel-spf-50',
-    brand: 'Lotus Herbals',
-    category: 'Skin Care & Facial Kits',
-    sku: 'LOT-SUN-SPF50-100',
-    shortDescription: 'Ultra-lightweight oil-free matte sunscreen gel.',
-    description: 'Protects against UVA & UVB rays while controlling shine and oil.',
-    highlights: ['SPF 50 PA+++', 'Non-greasy Matte Gel', 'Sweat resistant'],
-    benefits: ['Sunburn protection', 'Oil control'],
-    ingredients: 'Horse Chestnut, Comfrey, Vanilla extract.',
-    usageInstructions: 'Apply liberally before sun exposure.',
-    mrp: 495,
-    sellingPrice: 425,
-    discountPercent: 14,
-    avgRating: 4.8,
-    reviewCount: 88,
-    images: [{ url: 'https://images.unsplash.com/photo-1567928269937-ae1465228514?w=800&q=80', altText: 'Lotus Sunscreen Gel', isPrimary: true }],
-    variants: [{ id: 'v-sc2', sku: 'LOT-SUN-SPF50-100', size: '100g', mrp: 495, sellingPrice: 425, stock: 80 }]
-  },
-
-  // Branded Cosmetics & Makeup
   {
     id: 'cm-1',
-    name: 'Maybelline Superstay Matte Ink Liquid Lipstick',
-    slug: 'maybelline-superstay-matte-ink',
+    name: 'Maybelline Superstay Matte Ink Liquid Lipstick - Ruler 80',
+    slug: 'maybelline-superstay-matte-ink-ruler',
     brand: 'Maybelline New York',
     category: 'Branded Cosmetics & Makeup',
     sku: 'MAY-MATTE-INK-RULER',
-    shortDescription: '16-hour long lasting transfer-proof liquid lipstick.',
-    description: 'Ink your lips in up to 16 hours of saturated liquid matte color.',
-    highlights: ['Up to 16 Hour Wear', 'Transfer-proof formula', 'Arrow applicator tip'],
-    benefits: ['Non-drying formula', 'Bold color payoff'],
-    ingredients: 'Dimethicone, Isododecane, Trimethylsiloxysilicate.',
-    usageInstructions: 'Apply in center of upper lip and follow contours.',
+    shortDescription: '16-Hour transfer-proof liquid matte lipstick in deep reddish berry.',
+    description: 'Ink your lips in up to 16 hours of saturated liquid matte color with Maybelline Superstay Matte Ink.',
+    highlights: ['16 Hour Longwear', 'Arrow applicator for precise application', 'High-pigment matte formula'],
+    benefits: ['Transfer-proof & smudge-proof', 'Non-drying matte finish', 'Waterproof'],
+    ingredients: 'Isododecane, Dimethicone, Trimethylsiloxysilicate, Polypropylsilsesquioxane, Red 28 Lake.',
+    usageInstructions: 'Apply liquid lipstick in the center of your upper lip and follow the contours of your mouth.',
     mrp: 699,
     sellingPrice: 599,
     discountPercent: 14,
     avgRating: 4.8,
-    reviewCount: 89,
-    images: [{ url: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&q=80', altText: 'Maybelline Liquid Lipstick', isPrimary: true }],
-    variants: [{ id: 'v-cm1', sku: 'MAY-MATTE-INK-RULER', shade: '80 Ruler', size: '5ml', mrp: 699, sellingPrice: 599, stock: 50 }]
+    reviewCount: 380,
+    images: [{ url: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&q=80', altText: 'Maybelline Matte Ink', isPrimary: true }],
+    variants: [{ id: 'v-cm1-1', sku: 'MAY-MATTE-INK-RULER', shade: 'Ruler 80', mrp: 699, sellingPrice: 599, stock: 100 }]
   },
   {
-    id: 'cm-2',
-    name: 'Maybelline Fit Me Matte + Poreless Liquid Foundation',
-    slug: 'maybelline-fit-me-matte-poreless-foundation',
-    brand: 'Maybelline New York',
-    category: 'Branded Cosmetics & Makeup',
-    sku: 'MAY-FITME-FOUND-128',
-    shortDescription: 'Natural matte finish liquid foundation with clay technology.',
-    description: 'Refines pores and absorbs oil for a natural, seamless matte finish.',
-    highlights: ['Clay tech oil control', 'SPF 22 PA+++', 'Non-comedogenic'],
-    benefits: ['Pore refinement', 'Natural coverage'],
-    ingredients: 'Aqua, Cyclohexasiloxane, Nylon-12.',
-    usageInstructions: 'Apply evenly to face and blend with fingertips.',
-    mrp: 649,
-    sellingPrice: 550,
-    discountPercent: 15,
-    avgRating: 4.7,
-    reviewCount: 110,
-    images: [{ url: 'https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&q=80', altText: 'Maybelline Fit Me Foundation', isPrimary: true }],
-    variants: [{ id: 'v-cm2', sku: 'MAY-FITME-FOUND-128', shade: '128 Warm Nude', size: '30ml', mrp: 649, sellingPrice: 550, stock: 60 }]
+    id: 'ba-1',
+    name: 'Vega Professional Pro Touch Hair Dryer 2000W Heavy Duty Motor',
+    slug: 'vega-pro-touch-hair-dryer-2000w',
+    brand: 'Vega Professional',
+    category: 'Beauty Accessories & Tools',
+    sku: 'VEG-PRO-DRYER-2000W',
+    shortDescription: 'Heavy-duty AC motor professional salon hair dryer with cool shot.',
+    description: 'Vega Professional Pro Touch Dryer features 2000W heavy-duty motor, 2 speed settings, and cool shot button for salon blowouts.',
+    highlights: ['2000 Watts AC Motor', 'Cool Shot Feature', 'Includes 2 Concentrator Nozzles'],
+    benefits: ['Fast salon drying time', 'Reduces heat damage', 'Ergonomic non-slip grip'],
+    ingredients: 'High grade heat-resistant polycarbonate casing, copper AC coil motor.',
+    usageInstructions: 'Towel dry hair. Select speed and heat setting. Use cool shot to lock in style after drying.',
+    mrp: 2990,
+    sellingPrice: 2490,
+    discountPercent: 17,
+    avgRating: 4.8,
+    reviewCount: 160,
+    images: [{ url: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=800&q=80', altText: 'Vega Dryer', isPrimary: true }],
+    variants: [{ id: 'v-ba1-1', sku: 'VEG-PRO-DRYER-2000W', size: '2000W Black', mrp: 2990, sellingPrice: 2490, stock: 35 }]
   }
 ];
 
-export async function fetchProducts(params?: { category?: string; brand?: string; search?: string }) {
-  try {
-    const query = new URLSearchParams();
-    if (params?.category) query.set('category', params.category);
-    if (params?.brand) query.set('brand', params.brand);
-    if (params?.search) query.set('search', params.search);
+export async function fetchProducts(category?: string, search?: string): Promise<ProductItem[]> {
+  return fetchCatalogProducts(category, search);
+}
 
-    const res = await fetch(`${API_BASE}/catalog/products?${query.toString()}`, { cache: 'no-store' });
-    if (!res.ok) throw new Error('API fetch failed');
+export async function fetchCatalogProducts(category?: string, search?: string): Promise<ProductItem[]> {
+  try {
+    let url = `${API_BASE}/catalog`;
+    const params = new URLSearchParams();
+    if (category) params.append('category', category);
+    if (search) params.append('search', search);
+    if (params.toString()) url += `?${params.toString()}`;
+
+    const res = await fetch(url, { cache: 'no-store' });
+    if (!res.ok) throw new Error('API Catalog Fetch Failed');
     const json = await res.json();
-    return json.data as ProductItem[];
+    return json.products || json.data || initialFallbackProducts;
   } catch (err) {
-    let items = [...initialFallbackProducts];
-    if (params?.category) {
-      const cat = params.category.toLowerCase();
-      items = items.filter(i => i.category.toLowerCase().replace(/\s+/g, '-').includes(cat));
+    let filtered = initialFallbackProducts;
+    if (category) {
+      filtered = filtered.filter(p => p.category.toLowerCase() === category.toLowerCase());
     }
-    if (params?.search) {
-      items = items.filter(i => i.name.toLowerCase().includes(params.search!.toLowerCase()));
+    if (search) {
+      filtered = filtered.filter(p => p.name.toLowerCase().includes(search.toLowerCase()) || p.brand.toLowerCase().includes(search.toLowerCase()));
     }
-    return items;
+    return filtered;
   }
 }
 
-export async function fetchProductBySlug(slug: string) {
+export async function fetchProductBySlug(slug: string): Promise<ProductItem | null> {
   try {
-    const res = await fetch(`${API_BASE}/catalog/products/${slug}`, { cache: 'no-store' });
-    if (!res.ok) throw new Error('API fetch failed');
+    const res = await fetch(`${API_BASE}/catalog/product/${slug}`, { cache: 'no-store' });
+    if (!res.ok) throw new Error('Product not found');
     const json = await res.json();
-    return json.data.product as ProductItem;
-  } catch {
-    return initialFallbackProducts.find(p => p.slug === slug || p.id === slug) || initialFallbackProducts[0];
+    return json.product || json.data || null;
+  } catch (err) {
+    return initialFallbackProducts.find(p => p.slug === slug) || null;
   }
 }

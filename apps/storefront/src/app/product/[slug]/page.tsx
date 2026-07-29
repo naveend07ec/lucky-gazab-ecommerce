@@ -12,6 +12,17 @@ export default async function ProductDetailPage({
 }) {
   const product = await fetchProductBySlug(params.slug);
 
+  if (!product) {
+    return (
+      <div className="bg-white min-h-screen py-20 text-center space-y-4">
+        <h1 className="text-2xl font-bold text-[#111111]">Product Not Found</h1>
+        <p className="text-xs text-neutral-500">The requested catalog item is unavailable.</p>
+        <Link href="/products" className="inline-block bg-[#111111] text-white px-6 py-2.5 rounded-full text-xs font-semibold">
+          Return to Collections
+        </Link>
+      </div>
+    );
+  }
   return (
     <div className="bg-white min-h-screen py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
