@@ -59,10 +59,10 @@ export function Sidebar({ activeTab, setActiveTab, isMobileOpen = false, setIsMo
   };
 
   const SidebarContent = (
-    <div className="flex flex-col justify-between p-3 h-full text-slate-300 select-none">
+    <div className="flex flex-col justify-between p-3 h-full text-[#E2E8F0] select-none">
       <div className="space-y-4">
         {/* Brand Header */}
-        <div className="flex items-center justify-between px-2 py-2.5 border-b border-slate-800/80">
+        <div className="flex items-center justify-between px-2 py-2.5 border-b border-[#334155]">
           <div className="flex items-center space-x-3 overflow-hidden">
             <div className="w-8 h-8 rounded-lg bg-[#2563EB] text-white flex items-center justify-center font-extrabold text-sm shadow-sm shrink-0">
               G
@@ -70,7 +70,7 @@ export function Sidebar({ activeTab, setActiveTab, isMobileOpen = false, setIsMo
             {(!isCollapsed || isMobileOpen) && (
               <div>
                 <h2 className="text-xs font-bold text-white tracking-wide uppercase truncate">GAZAB HI GAZAB</h2>
-                <span className="text-[9px] text-slate-400 block font-medium">Enterprise Console</span>
+                <span className="text-[10px] text-[#CBD5E1] block font-medium">Enterprise Console</span>
               </div>
             )}
           </div>
@@ -78,7 +78,7 @@ export function Sidebar({ activeTab, setActiveTab, isMobileOpen = false, setIsMo
           {/* Desktop Collapse Toggle */}
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="hidden md:block p-1 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            className="hidden md:block p-1 rounded-md text-[#CBD5E1] hover:text-white hover:bg-[#1E293B] transition-colors"
             title={isCollapsed ? 'Expand Sidebar' : 'Collapse Sidebar'}
           >
             {isCollapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
@@ -88,7 +88,7 @@ export function Sidebar({ activeTab, setActiveTab, isMobileOpen = false, setIsMo
           {setIsMobileOpen && (
             <button
               onClick={() => setIsMobileOpen(false)}
-              className="md:hidden p-1 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+              className="md:hidden p-1 rounded-md text-[#CBD5E1] hover:text-white hover:bg-[#1E293B] transition-colors"
               title="Close Navigation Drawer"
             >
               <X className="w-5 h-5" />
@@ -101,7 +101,7 @@ export function Sidebar({ activeTab, setActiveTab, isMobileOpen = false, setIsMo
           {navigationGroups.map((group, idx) => (
             <div key={idx} className="space-y-1">
               {(!isCollapsed || isMobileOpen) && (
-                <span className="px-3 text-[9px] font-bold text-slate-400 uppercase tracking-widest block mb-1">
+                <span className="px-3 text-[9px] font-bold text-[#CBD5E1] uppercase tracking-widest block mb-1">
                   {group.groupName}
                 </span>
               )}
@@ -112,15 +112,15 @@ export function Sidebar({ activeTab, setActiveTab, isMobileOpen = false, setIsMo
                   <button
                     key={item.id}
                     onClick={() => handleSelectTab(item.id)}
-                    className={`w-full flex items-center ${isCollapsed && !isMobileOpen ? 'justify-center' : 'justify-between'} px-3 py-2.5 rounded-lg text-xs font-medium transition-colors relative ${
+                    className={`w-full flex items-center ${isCollapsed && !isMobileOpen ? 'justify-center' : 'justify-between'} px-3 py-2.5 rounded-lg text-xs font-medium transition-all relative ${
                       isActive
                         ? 'bg-[#2563EB] text-white font-semibold shadow-sm'
-                        : 'text-slate-400 hover:text-white hover:bg-[#1E293B]'
+                        : 'text-[#CBD5E1] hover:text-white hover:bg-[#1E293B]'
                     }`}
                     title={isCollapsed && !isMobileOpen ? item.label : undefined}
                   >
                     <div className="flex items-center space-x-3">
-                      <Icon className="w-4 h-4 shrink-0" />
+                      <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-white' : 'text-[#CBD5E1]'}`} />
                       {(!isCollapsed || isMobileOpen) && <span className="truncate">{item.label}</span>}
                     </div>
                     {isActive && (!isCollapsed || isMobileOpen) && (
@@ -135,14 +135,14 @@ export function Sidebar({ activeTab, setActiveTab, isMobileOpen = false, setIsMo
       </div>
 
       {/* Role Badge Footer */}
-      <div className="pt-3 border-t border-slate-800/80 text-[10px] text-slate-400 px-2 flex items-center justify-between">
+      <div className="pt-3 border-t border-[#334155] text-[10px] text-[#CBD5E1] px-2 flex items-center justify-between">
         {(!isCollapsed || isMobileOpen) ? (
           <div className="flex items-center space-x-2 truncate">
-            <div className="w-2 h-2 rounded-full bg-[#22C55E]" />
-            <span className="truncate font-medium">{GROUND_TRUTH_DATA.email}</span>
+            <div className="w-2 h-2 rounded-full bg-[#16A34A]" />
+            <span className="truncate font-semibold text-[#E2E8F0]">{GROUND_TRUTH_DATA.email}</span>
           </div>
         ) : (
-          <div className="w-2 h-2 rounded-full bg-[#22C55E] mx-auto" />
+          <div className="w-2 h-2 rounded-full bg-[#16A34A] mx-auto" />
         )}
       </div>
     </div>
@@ -150,34 +150,32 @@ export function Sidebar({ activeTab, setActiveTab, isMobileOpen = false, setIsMo
 
   return (
     <>
-      {/* Desktop Sticky Sidebar (Hidden on Mobile < md) */}
+      {/* Desktop Sticky Sidebar */}
       <motion.aside
         animate={{ width: isCollapsed ? 80 : 256 }}
         transition={{ duration: 0.2, ease: 'easeInOut' }}
-        className="hidden md:flex bg-[#0F172A] border-r border-slate-800/80 flex-col h-screen sticky top-0 shrink-0 z-40"
+        className="hidden md:flex bg-[#0F172A] border-r border-[#334155] flex-col h-screen sticky top-0 shrink-0 z-40"
       >
         {SidebarContent}
       </motion.aside>
 
-      {/* Mobile Backdrop & Drawer Overlay (< md) */}
+      {/* Mobile Backdrop & Drawer Overlay */}
       <AnimatePresence>
         {isMobileOpen && (
           <div className="fixed inset-0 z-50 md:hidden flex">
-            {/* Dark Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsMobileOpen && setIsMobileOpen(false)}
-              className="fixed inset-0 bg-slate-900/60 backdrop-blur-xs"
+              className="fixed inset-0 bg-slate-900/70 backdrop-blur-xs"
             />
-            {/* Drawer */}
             <motion.aside
               initial={{ x: '-100%' }}
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ duration: 0.25, ease: 'easeOut' }}
-              className="relative w-72 max-w-[85vw] bg-[#0F172A] border-r border-slate-800/80 h-full shadow-2xl z-50 flex flex-col"
+              className="relative w-72 max-w-[85vw] bg-[#0F172A] border-r border-[#334155] h-full shadow-2xl z-50 flex flex-col"
             >
               {SidebarContent}
             </motion.aside>

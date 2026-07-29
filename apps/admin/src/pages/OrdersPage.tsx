@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ShoppingBag, Download, Eye, Search, Filter } from 'lucide-react';
+import { Download, Search } from 'lucide-react';
 
 export function OrdersPage() {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -28,16 +28,16 @@ export function OrdersPage() {
   };
 
   return (
-    <div className="space-y-6 text-[#111827]">
+    <div className="space-y-6 text-[#0F172A] relative w-full">
       {/* Action Header */}
-      <div className="flex flex-wrap justify-between items-center border-b border-[#E5E7EB] pb-4 gap-4">
+      <div className="flex flex-wrap justify-between items-center border-b border-[#E2E8F0] pb-4 gap-4">
         <div>
-          <h1 className="text-xl font-bold text-[#111827]">Orders & GST Invoices</h1>
-          <p className="text-xs text-[#6B7280]">Process fulfillment pipelines and generate GST Tax Invoices</p>
+          <h1 className="text-xl font-bold text-[#0F172A]">Orders & GST Invoices</h1>
+          <p className="text-xs text-[#475569]">Process fulfillment pipelines and generate GST Tax Invoices</p>
         </div>
         <button
           onClick={handleExportOrdersCsv}
-          className="bg-white border border-[#E5E7EB] text-[#111827] px-4 py-2 rounded-lg text-xs font-semibold hover:bg-slate-50 transition-colors shadow-sm flex items-center space-x-1.5"
+          className="bg-white border border-[#E2E8F0] text-[#0F172A] px-4 py-2 rounded-lg text-xs font-semibold hover:bg-slate-50 transition-colors shadow-xs flex items-center space-x-1.5 focus:ring-2 focus:ring-[#2563EB]"
         >
           <Download className="w-3.5 h-3.5 text-[#2563EB]" />
           <span>Export Orders CSV</span>
@@ -45,14 +45,14 @@ export function OrdersPage() {
       </div>
 
       {/* Search & Filter Bar */}
-      <div className="flex flex-wrap justify-between items-center gap-4 border-b border-[#E5E7EB] pb-3">
+      <div className="flex flex-wrap justify-between items-center gap-4 border-b border-[#E2E8F0] pb-3">
         <div className="flex items-center space-x-2 text-xs font-semibold">
           {['all', 'pending', 'paid', 'shipped', 'delivered'].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveFilter(tab)}
               className={`px-3 py-1.5 rounded-lg capitalize transition-colors ${
-                activeFilter === tab ? 'bg-[#2563EB] text-white font-bold' : 'text-[#6B7280] hover:text-[#111827] hover:bg-slate-100'
+                activeFilter === tab ? 'bg-[#2563EB] text-white font-bold' : 'text-[#475569] hover:text-[#0F172A] hover:bg-slate-100'
               }`}
             >
               {tab}
@@ -66,58 +66,58 @@ export function OrdersPage() {
             placeholder="Search order ref or customer..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="w-full bg-[#F8FAFC] border border-[#E5E7EB] rounded-lg py-1.5 pl-8 pr-3 text-xs text-[#111827] focus:outline-none focus:border-[#2563EB]"
+            className="w-full bg-[#F8FAFC] border border-[#E2E8F0] rounded-lg py-1.5 pl-8 pr-3 text-xs text-[#0F172A] placeholder-[#64748B] focus:outline-none focus:border-[#2563EB] focus:ring-1 focus:ring-[#2563EB]"
           />
-          <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-1/2 -translate-y-1/2" />
+          <Search className="w-3.5 h-3.5 text-[#475569] absolute left-2.5 top-1/2 -translate-y-1/2" />
         </div>
       </div>
 
       {/* Orders Table */}
-      <div className="bg-white border border-[#E5E7EB] rounded-xl overflow-hidden shadow-sm">
+      <div className="bg-white border border-[#E2E8F0] rounded-xl overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs border-collapse">
             <thead>
-              <tr className="bg-[#F8FAFC] text-[#6B7280] uppercase tracking-wider font-semibold border-b border-[#E5E7EB] text-[10px]">
+              <tr className="bg-[#F8FAFC] text-[#475569] uppercase tracking-wider font-bold border-b border-[#E2E8F0] text-[10px]">
                 <th className="py-3 px-4">Order Ref</th>
                 <th className="py-3 px-4">Customer</th>
                 <th className="py-3 px-4">Payment</th>
-                <th className="py-3 px-4">Total Amount</th>
+                <th className="py-3 px-4 text-right">Total Amount</th>
                 <th className="py-3 px-4">Status</th>
                 <th className="py-3 px-4">Date</th>
                 <th className="py-3 px-4 text-right">GST Invoice</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E5E7EB]">
+            <tbody className="divide-y divide-[#E2E8F0]">
               {orders
                 .filter(o => (activeFilter === 'all' || o.status === activeFilter) &&
                   (o.id.toLowerCase().includes(searchTerm.toLowerCase()) || o.customer.toLowerCase().includes(searchTerm.toLowerCase())))
                 .map((ord) => (
-                  <tr key={ord.id} className="hover:bg-slate-50/80 transition-colors even:bg-slate-50/30">
-                    <td className="py-3.5 px-4 font-bold text-[#111827]">{ord.id}</td>
+                  <tr key={ord.id} className="hover:bg-slate-50 transition-colors even:bg-slate-50/40">
+                    <td className="py-3.5 px-4 font-bold text-[#0F172A]">{ord.id}</td>
                     <td className="py-3.5 px-4">
-                      <span className="font-bold text-[#111827] block">{ord.customer}</span>
-                      <span className="text-[10px] text-[#6B7280]">{ord.email}</span>
+                      <span className="font-bold text-[#0F172A] block">{ord.customer}</span>
+                      <span className="text-[10px] text-[#475569] font-medium">{ord.email}</span>
                     </td>
-                    <td className="py-3.5 px-4 text-[#6B7280]">{ord.payment}</td>
-                    <td className="py-3.5 px-4 font-bold text-[#111827]">{ord.total}</td>
+                    <td className="py-3.5 px-4 text-[#475569] font-medium">{ord.payment}</td>
+                    <td className="py-3.5 px-4 font-extrabold text-[#0F172A] text-right">{ord.total}</td>
                     <td className="py-3.5 px-4">
                       <span className={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase border ${
                         ord.status === 'delivered'
-                          ? 'bg-emerald-50 text-[#22C55E] border-emerald-200'
+                          ? 'bg-emerald-50 text-[#16A34A] border-emerald-200'
                           : ord.status === 'shipped'
                           ? 'bg-blue-50 text-[#2563EB] border-blue-200'
-                          : 'bg-amber-50 text-[#F59E0B] border-amber-200'
+                          : 'bg-amber-50 text-[#D97706] border-amber-200'
                       }`}>
                         {ord.status}
                       </span>
                     </td>
-                    <td className="py-3.5 px-4 text-[#6B7280]">{ord.date}</td>
+                    <td className="py-3.5 px-4 text-[#475569] font-medium">{ord.date}</td>
                     <td className="py-3.5 px-4 text-right">
                       <a
                         href={`http://localhost:4000/api/v1/orders/${ord.dbId}/invoice`}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="bg-white border border-[#E5E7EB] text-[#111827] px-3 py-1.5 rounded-lg text-[11px] font-semibold hover:bg-slate-50 transition-colors inline-flex items-center space-x-1"
+                        className="bg-white border border-[#E2E8F0] text-[#0F172A] px-3 py-1.5 rounded-lg text-[11px] font-semibold hover:bg-slate-50 transition-colors inline-flex items-center space-x-1 focus:ring-2 focus:ring-[#2563EB]"
                       >
                         <Download className="w-3.5 h-3.5 text-[#2563EB]" />
                         <span>PDF Invoice</span>
