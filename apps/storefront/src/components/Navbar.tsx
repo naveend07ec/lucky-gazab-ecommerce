@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { GROUND_TRUTH_DATA } from '@lucky-gazab/shared-types';
-import { ShoppingBag, Search, Phone, MessageCircle, User, Heart, Menu, X, LogOut, LogIn, UserPlus } from 'lucide-react';
+import { ShoppingBag, Search, Phone, MessageCircle, User, Menu, X, LogOut, LogIn, UserPlus } from 'lucide-react';
 import { useAuth } from '@/context/AuthContext';
 
 export function Navbar({ cartCount = 1 }: { cartCount?: number }) {
@@ -12,20 +12,20 @@ export function Navbar({ cartCount = 1 }: { cartCount?: number }) {
   const { isAuthenticated, user, logout } = useAuth();
 
   return (
-    <header className="sticky top-0 z-50 bg-white border-b border-[#E5E7EB] shadow-sm">
+    <header className="sticky top-0 z-50 bg-white border-b border-[#E5E7EB] shadow-xs w-full max-w-full overflow-x-hidden">
       {/* Top Announcement Bar - Dark Charcoal & Deep Burgundy Accents */}
-      <div className="bg-[#111111] text-[11px] py-2 px-4 text-neutral-300">
-        <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-2">
-          <div className="flex items-center space-x-4">
-            <span className="flex items-center text-[#8B1E3F] font-semibold tracking-wide">
-              <Phone className="w-3 h-3 mr-1.5" />
-              Tel: {GROUND_TRUTH_DATA.phoneLandline} | Mobile: {GROUND_TRUTH_DATA.mobile}
+      <div className="bg-[#111111] text-[10px] sm:text-[11px] py-1.5 px-3 sm:px-4 text-neutral-300 w-full overflow-hidden">
+        <div className="max-w-7xl mx-auto flex flex-wrap justify-between items-center gap-1 sm:gap-2">
+          <div className="flex items-center space-x-2 sm:space-x-4 truncate">
+            <span className="flex items-center text-[#8B1E3F] font-semibold tracking-wide truncate">
+              <Phone className="w-3 h-3 mr-1 shrink-0" />
+              <span className="truncate">Tel: {GROUND_TRUTH_DATA.phoneLandline}</span>
             </span>
-            <span className="hidden md:inline text-neutral-400">
-              UG-2 Raunak Tower, Near Anand Bazar Square, Indore
+            <span className="hidden md:inline text-neutral-400 truncate">
+              UG-2 Raunak Tower, Indore
             </span>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-2 sm:space-x-4 shrink-0">
             <a
               href={`https://wa.me/91${GROUND_TRUTH_DATA.whatsapp}?text=Hi%20Lucky's%20GAZAB%20HI%20GAZAB%2C%20I%20have%20an%20inquiry`}
               target="_blank"
@@ -33,10 +33,10 @@ export function Navbar({ cartCount = 1 }: { cartCount?: number }) {
               className="text-[#8B1E3F] font-semibold flex items-center hover:underline tracking-wide"
             >
               <MessageCircle className="w-3 h-3 mr-1" />
-              WhatsApp Concierge
+              <span>WhatsApp</span>
             </a>
-            <span className="text-neutral-700">|</span>
-            <span className="text-neutral-300 font-medium tracking-wider uppercase text-[10px]">
+            <span className="text-neutral-700 hidden sm:inline">|</span>
+            <span className="hidden sm:inline text-neutral-300 font-medium tracking-wider uppercase text-[10px]">
               Retail & Salon Wholesale
             </span>
           </div>
@@ -44,30 +44,30 @@ export function Navbar({ cartCount = 1 }: { cartCount?: number }) {
       </div>
 
       {/* Main Brand Header */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between gap-6">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-2 sm:gap-6 w-full max-w-full">
         {/* Brand Logo - Minimalist Deep Burgundy */}
-        <Link href="/" className="flex items-center space-x-3 group">
-          <div className="w-9 h-9 rounded-full bg-[#111111] text-white border border-[#8B1E3F] flex items-center justify-center font-serif text-lg font-bold">
+        <Link href="/" className="flex items-center space-x-2 sm:space-x-3 shrink-1 min-w-0">
+          <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-full bg-[#111111] text-white border border-[#8B1E3F] flex items-center justify-center font-serif text-sm sm:text-lg font-bold shrink-0">
             G
           </div>
-          <div>
-            <span className="font-serif text-xl sm:text-2xl font-bold tracking-tight text-[#111111] block leading-none">
-              LUCKY'S <span className="text-[#8B1E3F]">GAZAB HI GAZAB</span>
+          <div className="min-w-0 leading-tight">
+            <span className="font-serif text-sm sm:text-xl lg:text-2xl font-bold tracking-tight text-[#111111] block truncate">
+              LUCKY'S <span className="text-[#8B1E3F]">GAZAB</span>
             </span>
-            <span className="text-[9px] text-[#6B7280] tracking-[0.2em] uppercase block mt-1">
-              Haute Beautē & Salon Professional • Indore
+            <span className="text-[8px] sm:text-[9px] text-[#6B7280] tracking-[0.15em] uppercase hidden sm:block truncate mt-0.5">
+              Haute Beautē & Salon Professional
             </span>
           </div>
         </Link>
 
-        {/* Minimalist Search Bar */}
+        {/* Minimalist Search Bar (Desktop) */}
         <div className="hidden md:flex flex-1 max-w-md relative">
           <input
             type="text"
             placeholder="Search L'Oréal, O3+, Schwarzkopf, Maybelline..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-[#F8F8F8] border border-[#E5E7EB] rounded-full py-2.5 pl-4 pr-10 text-xs text-[#111111] placeholder-[#6B7280] focus:outline-none focus:border-[#8B1E3F] focus:bg-white transition-all"
+            className="w-full bg-[#F8F8F8] border border-[#E5E7EB] rounded-full py-2 pl-4 pr-10 text-xs text-[#111111] placeholder-[#6B7280] focus:outline-none focus:border-[#8B1E3F] focus:bg-white transition-all"
           />
           <Link
             href={`/products?search=${encodeURIComponent(searchQuery)}`}
@@ -75,36 +75,10 @@ export function Navbar({ cartCount = 1 }: { cartCount?: number }) {
           >
             <Search className="w-3.5 h-3.5" />
           </Link>
-
-          {/* Autocomplete Dropdown */}
-          {searchQuery.trim().length > 1 && (
-            <div className="absolute top-full left-0 right-0 mt-2 bg-white border border-[#E5E7EB] rounded-2xl overflow-hidden z-50 p-2 space-y-1 shadow-xl">
-              {[
-                { name: "L'Oréal Professionnel Absolut Repair Mask", slug: "loreal-absolut-repair-mask", brand: "L'Oréal", price: 855 },
-                { name: "O3+ Professional Brightening Facial Kit", slug: "o3-professional-brightening-facial-kit", brand: "O3+", price: 1290 },
-                { name: "Schwarzkopf Igora Royal Hair Color", slug: "schwarzkopf-igora-royal-shade-5-0", brand: "Schwarzkopf", price: 460 }
-              ]
-                .filter(i => i.name.toLowerCase().includes(searchQuery.toLowerCase()) || i.brand.toLowerCase().includes(searchQuery.toLowerCase()))
-                .map((item, idx) => (
-                  <Link
-                    key={idx}
-                    href={`/product/${item.slug}`}
-                    onClick={() => setSearchQuery('')}
-                    className="flex justify-between items-center p-2.5 rounded-xl hover:bg-[#F8F8F8] text-xs transition-colors"
-                  >
-                    <div>
-                      <span className="font-semibold text-[#111111] block">{item.name}</span>
-                      <span className="text-[10px] text-[#6B7280] uppercase tracking-wider">{item.brand}</span>
-                    </div>
-                    <span className="font-extrabold text-[#8B1E3F]">₹{item.price}</span>
-                  </Link>
-                ))}
-            </div>
-          )}
         </div>
 
-        {/* Action Icons */}
-        <div className="flex items-center space-x-4 text-xs">
+        {/* Action Icons (Compact & Responsive on 320px - 430px) */}
+        <div className="flex items-center space-x-1.5 sm:space-x-4 text-xs shrink-0">
           {isAuthenticated ? (
             <>
               <Link href="/account" className="text-[#111111] hover:text-[#8B1E3F] transition-colors hidden sm:flex items-center space-x-1.5 font-semibold">
@@ -122,43 +96,49 @@ export function Navbar({ cartCount = 1 }: { cartCount?: number }) {
             </>
           ) : (
             <>
-              <Link href="/login" className="text-[#111111] hover:text-[#8B1E3F] px-3.5 py-1.5 rounded-lg border border-[#E5E7EB] hover:border-[#8B1E3F] transition-all flex items-center space-x-1.5 font-medium">
-                <LogIn className="w-3.5 h-3.5" />
-                <span>Sign In</span>
+              <Link
+                href="/login"
+                className="text-[#111111] hover:text-[#8B1E3F] p-1.5 sm:px-3.5 sm:py-1.5 rounded-lg border border-[#E5E7EB] hover:border-[#8B1E3F] transition-all flex items-center space-x-1 font-medium text-xs"
+                title="Sign In"
+              >
+                <LogIn className="w-4 h-4 text-[#111111]" />
+                <span className="hidden sm:inline">Sign In</span>
               </Link>
-              <Link href="/register" className="bg-[#111111] hover:bg-[#8B1E3F] text-white px-3.5 py-1.5 rounded-lg transition-all hidden sm:flex items-center space-x-1.5 font-medium">
+              <Link href="/register" className="bg-[#111111] hover:bg-[#8B1E3F] text-white px-3 py-1.5 rounded-lg transition-all hidden sm:flex items-center space-x-1.5 font-medium">
                 <UserPlus className="w-3.5 h-3.5" />
                 <span>Register</span>
               </Link>
             </>
           )}
 
-          {/* Cart Icon */}
+          {/* Cart Bag Icon */}
           <Link
             href="/cart"
-            className="bg-[#111111] hover:bg-[#8B1E3F] text-white px-4 py-2 rounded-full font-medium text-xs flex items-center space-x-2 transition-all shadow-sm"
+            className="bg-[#111111] hover:bg-[#8B1E3F] text-white px-2.5 py-1.5 sm:px-4 sm:py-2 rounded-full font-medium text-xs flex items-center space-x-1 sm:space-x-2 transition-all shadow-xs"
           >
-            <ShoppingBag className="w-4 h-4 text-white" />
-            <span>Bag</span>
+            <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" />
+            <span className="hidden sm:inline">Bag</span>
             {cartCount > 0 && (
               <span className="bg-[#8B1E3F] text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
                 {cartCount}
               </span>
             )}
           </Link>
+
+          {/* Mobile Hamburger Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden text-[#111111] p-2 focus:outline-none"
+            className="md:hidden text-[#111111] p-1.5 focus:outline-none rounded-lg hover:bg-slate-100"
             aria-label="Toggle Mobile Navigation Menu"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
       </div>
 
       {/* Mobile Drawer Menu (Visible on Mobile 320px - 768px) */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-white border-t border-[#E5E7EB] px-4 py-4 space-y-4 shadow-xl text-xs font-semibold uppercase tracking-wider">
+        <div className="md:hidden bg-white border-t border-[#E5E7EB] px-4 py-4 space-y-4 shadow-xl text-xs font-semibold uppercase tracking-wider w-full">
           <div className="relative">
             <input
               type="text"

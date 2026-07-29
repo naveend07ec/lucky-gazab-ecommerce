@@ -2,14 +2,16 @@
 
 import React, { useState } from 'react';
 import { GROUND_TRUTH_DATA } from '@lucky-gazab/shared-types';
-import { Search, Bell, ShieldCheck, Cpu, Check, AlertTriangle, ShoppingBag, X } from 'lucide-react';
+import { Search, Bell, ShieldCheck, Cpu, Check, AlertTriangle, ShoppingBag, X, Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface HeaderProps {
   activeTab: string;
+  isMobileOpen?: boolean;
+  setIsMobileOpen?: (open: boolean) => void;
 }
 
-export function Header({ activeTab }: HeaderProps) {
+export function Header({ activeTab, isMobileOpen, setIsMobileOpen }: HeaderProps) {
   const [showNotifications, setShowNotifications] = useState(false);
   const [unreadCount, setUnreadCount] = useState(3);
 
@@ -33,17 +35,31 @@ export function Header({ activeTab }: HeaderProps) {
   };
 
   return (
-    <header className="bg-white border-b border-[#E5E7EB] px-6 py-3.5 flex items-center justify-between sticky top-0 z-30 shadow-xs">
-      {/* Breadcrumbs & Page Title */}
+    <header className="bg-white border-b border-[#E5E7EB] px-4 sm:px-6 py-3 flex items-center justify-between sticky top-0 z-30 shadow-xs">
+      {/* Mobile Drawer Hamburger & Breadcrumbs */}
       <div className="flex items-center space-x-3 text-xs">
-        <span className="text-slate-400 font-medium">Console</span>
-        <span className="text-slate-300">/</span>
-        <span className="font-bold text-[#111827] uppercase tracking-wider">{getTabTitle(activeTab)}</span>
+        {setIsMobileOpen && (
+          <button
+            onClick={() => setIsMobileOpen(!isMobileOpen)}
+            className="md:hidden p-1.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors"
+            title="Open Console Menu"
+          >
+            <Menu className="w-5 h-5" />
+          </button>
+        )}
+
+        <div className="flex items-center space-x-2 text-xs">
+          <span className="text-slate-400 font-medium hidden sm:inline">Console</span>
+          <span className="text-slate-300 hidden sm:inline">/</span>
+          <span className="font-bold text-[#111827] uppercase tracking-wider truncate max-w-[140px] sm:max-w-none">
+            {getTabTitle(activeTab)}
+          </span>
+        </div>
       </div>
 
       {/* Global Command Search & System Health */}
-      <div className="flex items-center space-x-4">
-        <div className="relative hidden sm:block w-64">
+      <div className="flex items-center space-x-3 sm:space-x-4">
+        <div className="relative hidden lg:block w-64">
           <input
             type="text"
             placeholder="Search orders, SKUs, customers (⌘K)..."
@@ -59,7 +75,7 @@ export function Header({ activeTab }: HeaderProps) {
         </div>
 
         {/* Notifications & Admin Profile */}
-        <div className="flex items-center space-x-3 text-xs border-l border-[#E5E7EB] pl-4 relative">
+        <div className="flex items-center space-x-2 sm:space-x-3 text-xs border-l border-[#E5E7EB] pl-3 sm:pl-4 relative">
           <button
             onClick={() => {
               setShowNotifications(!showNotifications);
@@ -74,7 +90,7 @@ export function Header({ activeTab }: HeaderProps) {
             )}
           </button>
 
-          {/* Interactive Notifications Panel Dropdown */}
+          {/* Notifications Panel Dropdown */}
           <AnimatePresence>
             {showNotifications && (
               <motion.div
@@ -82,7 +98,7 @@ export function Header({ activeTab }: HeaderProps) {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: 8, scale: 0.96 }}
                 transition={{ duration: 0.15 }}
-                className="absolute right-0 top-full mt-2 w-80 bg-white border border-[#E5E7EB] rounded-2xl shadow-xl z-50 p-4 space-y-3"
+                className="absolute right-0 top-full mt-2 w-72 sm:w-80 bg-white border border-[#E5E7EB] rounded-2xl shadow-xl z-50 p-4 space-y-3"
               >
                 <div className="flex justify-between items-center border-b border-[#E5E7EB] pb-2">
                   <h4 className="font-bold text-[#111827] text-xs">System Notifications</h4>
@@ -113,7 +129,7 @@ export function Header({ activeTab }: HeaderProps) {
 
           {/* Profile Pill */}
           <div className="flex items-center space-x-2">
-            <div className="w-7 h-7 rounded-full bg-[#2563EB] text-white flex items-center justify-center font-bold text-xs shadow-xs">
+            <div className="w-7 h-7 rounded-full bg-[#2563EB] text-white flex items-center justify-center font-bold text-xs shadow-xs shrink-0">
               LM
             </div>
             <div className="hidden lg:block text-left leading-tight">

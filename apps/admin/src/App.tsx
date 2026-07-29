@@ -20,15 +20,25 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   return (
-    <div className="flex min-h-screen bg-[#F8FAFC] text-[#111827] font-sans antialiased">
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
+    <div className="flex min-h-screen bg-[#F8FAFC] text-[#111827] font-sans antialiased overflow-x-hidden w-full max-w-full">
+      <Sidebar
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        isMobileOpen={isMobileOpen}
+        setIsMobileOpen={setIsMobileOpen}
+      />
       
-      <div className="flex-1 flex flex-col min-w-0">
-        <Header activeTab={activeTab} />
+      <div className="flex-1 flex flex-col min-w-0 w-full overflow-x-hidden">
+        <Header
+          activeTab={activeTab}
+          isMobileOpen={isMobileOpen}
+          setIsMobileOpen={setIsMobileOpen}
+        />
         
-        <main className="flex-1 p-6 sm:p-8 overflow-y-auto">
+        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto overflow-x-hidden w-full max-w-full">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
@@ -36,6 +46,7 @@ export default function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -6 }}
               transition={{ duration: 0.2, ease: 'easeOut' }}
+              className="w-full max-w-full overflow-x-hidden"
             >
               {activeTab === 'dashboard' && <DashboardPage />}
               {activeTab === 'products' && <ProductsPage />}
