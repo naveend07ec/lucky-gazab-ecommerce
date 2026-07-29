@@ -127,67 +127,95 @@ export default function HomePage() {
   return (
     <div className="bg-[#FFFFFF] text-[#111111] overflow-x-hidden">
       {/* --------------------------------------------------------------------- */}
-      {/* 1. LUXURY FULL-SCREEN HERO SECTION (90-100VH) */}
+      {/* 1. LUXURY EDITORIAL HERO SECTION (90-95VH, MODEL ON RIGHT) */}
       {/* --------------------------------------------------------------------- */}
-      <section className="relative h-[90vh] sm:h-[95vh] w-full flex items-center justify-center overflow-hidden bg-[#111111]">
-        {/* Background Image with Slow Zoom */}
-        <motion.div
-          initial={{ scale: 1.08 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 8, ease: 'easeOut' }}
-          className="absolute inset-0 z-0"
-        >
-          <img
-            src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1600&q=80"
-            alt="Beauty Model High Fashion Hair & Makeup"
-            className="w-full h-full object-cover object-center opacity-85"
-          />
-        </motion.div>
-
-        {/* High-Contrast Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/50 to-transparent z-10" />
-
-        {/* Hero Content Box */}
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-white">
+      <section className="relative min-h-[90vh] lg:h-[92vh] w-full bg-[#FAF9F6] border-b border-[#EAEAEA] flex items-center overflow-hidden py-12 lg:py-0">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          
+          {/* Content Side (Left Column) */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut' }}
-            className="max-w-2xl space-y-6"
+            className="lg:col-span-6 space-y-6 text-left z-10"
           >
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold uppercase tracking-widest text-[#E5C384]">
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#8B1E3F]/10 border border-[#8B1E3F]/20 text-xs font-bold uppercase tracking-widest text-[#8B1E3F]">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Haute Beautē & Salon Professional</span>
+              <span>Haute Beautē & Cosmetics</span>
             </div>
 
-            <h1 className="font-serif text-4xl sm:text-6xl font-extrabold tracking-tight leading-tight">
-              Discover Your Beauty, <span className="italic font-normal text-[#E5C384]">Naturally.</span>
+            <h1 className="font-serif text-4xl sm:text-6xl lg:text-6xl font-extrabold tracking-tight text-[#111111] leading-[1.15]">
+              Discover Your Beauty, <span className="italic font-normal text-[#8B1E3F]">Naturally.</span>
             </h1>
 
-            <p className="text-sm sm:text-lg text-neutral-300 font-light leading-relaxed max-w-xl">
-              Premium Hair Care, Skin Care & Branded Cosmetics crafted for every style. Authorized retail & salon distributor in Indore.
+            <p className="text-sm sm:text-base text-neutral-600 font-normal leading-relaxed max-w-lg">
+              Premium Hair Care, Skin Care & Branded Cosmetics for Every Style. Authorized retail & salon distributor in Indore.
             </p>
 
+            {/* Buttons (Slide Up Motion) */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
               className="flex flex-wrap gap-4 pt-2"
             >
               <Link
                 href="/products"
-                className="bg-white hover:bg-[#E5C384] text-[#111111] font-bold px-8 py-3.5 rounded-full text-xs uppercase tracking-widest transition-all shadow-xl hover:shadow-2xl hover:scale-105"
+                className="bg-[#111111] hover:bg-[#8B1E3F] text-white font-bold px-8 py-4 rounded-full text-xs uppercase tracking-widest transition-all shadow-xl hover:shadow-2xl hover:scale-105"
               >
-                Shop Collection
+                Shop Now
               </Link>
               <Link
                 href="/products?category=salon-professional-products"
-                className="bg-transparent hover:bg-white/10 text-white font-bold border border-white/40 px-8 py-3.5 rounded-full text-xs uppercase tracking-widest backdrop-blur-sm transition-all"
+                className="bg-white hover:bg-neutral-100 text-[#111111] font-bold border border-[#111111] px-8 py-4 rounded-full text-xs uppercase tracking-widest transition-all"
               >
-                Explore Salon Brands
+                Explore Collection
               </Link>
             </motion.div>
+
+            {/* Trust Badges */}
+            <div className="pt-6 flex items-center space-x-6 text-xs text-neutral-500 border-t border-[#EAEAEA]">
+              <div className="flex items-center space-x-1.5 font-semibold text-[#111111]">
+                <ShieldCheck className="w-4 h-4 text-[#8B1E3F]" />
+                <span>100% Genuine Brands</span>
+              </div>
+              <div className="flex items-center space-x-1.5 font-semibold text-[#111111]">
+                <Truck className="w-4 h-4 text-[#8B1E3F]" />
+                <span>Same-Day Indore Delivery</span>
+              </div>
+            </div>
           </motion.div>
+
+          {/* Luxury Beauty Model Side (Right Column) */}
+          <motion.div
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: 'easeOut' }}
+            className="lg:col-span-6 relative w-full aspect-[4/5] sm:aspect-[4/4] lg:aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-white"
+          >
+            {/* Front-Facing Beauty Model Image (Ken Burns Slow Zoom Effect) */}
+            <motion.img
+              initial={{ scale: 1.05 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 6, ease: 'easeOut' }}
+              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1200&q=80"
+              alt="Luxury Cosmetics Beauty Model Front-Facing Portrait"
+              className="w-full h-full object-cover object-top"
+            />
+            {/* Subtle Lighting Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+            
+            <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-white/80 backdrop-blur-md border border-white/50 text-[#111111] shadow-lg flex items-center justify-between">
+              <div>
+                <span className="text-[10px] uppercase font-bold tracking-widest text-[#8B1E3F] block">Haute Beautē 2026</span>
+                <span className="font-serif text-sm font-bold">Radiant Glow & Salon Hair Care</span>
+              </div>
+              <span className="text-xs font-extrabold text-[#111111] bg-[#FAF9F6] px-3 py-1.5 rounded-full border border-[#EAEAEA]">
+                Top Brands
+              </span>
+            </div>
+          </motion.div>
+
         </div>
       </section>
 
