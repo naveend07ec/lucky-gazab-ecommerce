@@ -127,7 +127,7 @@ export default function HomePage() {
   return (
     <div className="bg-[#FFFFFF] text-[#111111] overflow-x-hidden">
       {/* --------------------------------------------------------------------- */}
-      {/* 1. LUXURY EDITORIAL HERO SECTION (90-95VH, MODEL ON RIGHT) */}
+      {/* 1. LUXURY EDITORIAL HERO SECTION (MODEL HOLDING COSMETIC ITEM) */}
       {/* --------------------------------------------------------------------- */}
       <section className="relative min-h-[90vh] lg:h-[92vh] w-full bg-[#FAF9F6] border-b border-[#EAEAEA] flex items-center overflow-hidden py-12 lg:py-0">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
@@ -186,32 +186,32 @@ export default function HomePage() {
             </div>
           </motion.div>
 
-          {/* Luxury Beauty Model Side (Right Column) */}
+          {/* Luxury Beauty Model Side (Right Column - Model with Cosmetics) */}
           <motion.div
             initial={{ opacity: 0, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: 'easeOut' }}
             className="lg:col-span-6 relative w-full aspect-[4/5] sm:aspect-[4/4] lg:aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl border border-white"
           >
-            {/* Front-Facing Beauty Model Image (Ken Burns Slow Zoom Effect) */}
+            {/* Front-Facing Beauty Model Image with Lipstick & Cosmetics */}
             <motion.img
               initial={{ scale: 1.05 }}
               animate={{ scale: 1 }}
               transition={{ duration: 6, ease: 'easeOut' }}
-              src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1200&q=80"
-              alt="Luxury Cosmetics Beauty Model Front-Facing Portrait"
-              className="w-full h-full object-cover object-top"
+              src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1200&q=80"
+              alt="Model Holding Luxury Lipstick & Cosmetic Product Campaign"
+              className="w-full h-full object-cover object-center"
             />
             {/* Subtle Lighting Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
             
-            <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-white/80 backdrop-blur-md border border-white/50 text-[#111111] shadow-lg flex items-center justify-between">
+            <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-white/85 backdrop-blur-md border border-white/50 text-[#111111] shadow-lg flex items-center justify-between">
               <div>
-                <span className="text-[10px] uppercase font-bold tracking-widest text-[#8B1E3F] block">Haute Beautē 2026</span>
-                <span className="font-serif text-sm font-bold">Radiant Glow & Salon Hair Care</span>
+                <span className="text-[10px] uppercase font-bold tracking-widest text-[#8B1E3F] block">Haute Beautē Cosmetics</span>
+                <span className="font-serif text-sm font-bold">Matte Lipsticks & Skin Radiance</span>
               </div>
               <span className="text-xs font-extrabold text-[#111111] bg-[#FAF9F6] px-3 py-1.5 rounded-full border border-[#EAEAEA]">
-                Top Brands
+                Original Brands
               </span>
             </div>
           </motion.div>
@@ -225,7 +225,7 @@ export default function HomePage() {
       <section className="py-16 sm:py-24 bg-[#F9F8F6] border-b border-[#EAEAEA]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            {/* Image Side */}
+            {/* Image Side - Salon & Skincare Model */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -234,8 +234,8 @@ export default function HomePage() {
               className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group"
             >
               <img
-                src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=1000&q=80"
-                alt="Professional Salon Collection Hairdresser Styling"
+                src="https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=1000&q=80"
+                alt="Professional Salon Hair Treatment & Skincare Model"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -277,7 +277,7 @@ export default function HomePage() {
       </section>
 
       {/* --------------------------------------------------------------------- */}
-      {/* 3. LIFESTYLE CATEGORIES GRID WITH MODEL IMAGES */}
+      {/* 3. LIFESTYLE CATEGORIES GRID WITH COSMETIC MODELS */}
       {/* --------------------------------------------------------------------- */}
       <section className="py-16 sm:py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         <div className="text-center space-y-3 max-w-2xl mx-auto">
@@ -290,8 +290,8 @@ export default function HomePage() {
           {/* Category 1: Salon Professional */}
           <Link href="/products?category=salon-professional-products" className="group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg block">
             <img
-              src="https://images.unsplash.com/photo-1560750588-73207b1ef5b8?w=800&q=80"
-              alt="Salon Professional Category"
+              src="https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?w=800&q=80"
+              alt="Salon Hair Care Treatment Model"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -305,8 +305,8 @@ export default function HomePage() {
           {/* Category 2: Hair Care & Hair Color */}
           <Link href="/products?category=hair-care-hair-color" className="group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg block">
             <img
-              src="https://images.unsplash.com/photo-1509967419530-da38b4704bc6?w=800&q=80"
-              alt="Hair Care & Color Category"
+              src="https://images.unsplash.com/photo-1526947425960-945c6e72858f?w=800&q=80"
+              alt="Model with Hair Care Serum"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -321,7 +321,7 @@ export default function HomePage() {
           <Link href="/products?category=skin-care-facial-kits" className="group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg block">
             <img
               src="https://images.unsplash.com/photo-1567928269937-ae1465228514?w=800&q=80"
-              alt="Skin Care Category"
+              alt="Skincare Model Applying Face Serum"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -335,8 +335,8 @@ export default function HomePage() {
           {/* Category 4: Branded Cosmetics */}
           <Link href="/products?category=branded-cosmetics-makeup" className="group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg block sm:col-span-1 lg:col-span-1">
             <img
-              src="https://images.unsplash.com/photo-1586495777744-4413f21062fa?w=800&q=80"
-              alt="Branded Cosmetics Category"
+              src="https://images.unsplash.com/photo-1512496015851-a90fb38ba796?w=800&q=80"
+              alt="Cosmetics Model Applying Lipstick Makeup"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -351,7 +351,7 @@ export default function HomePage() {
           <Link href="/products?category=beauty-accessories-tools" className="group relative aspect-[3/4] rounded-2xl overflow-hidden shadow-lg block sm:col-span-2 lg:col-span-2">
             <img
               src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=1000&q=80"
-              alt="Beauty Tools Category"
+              alt="Professional Vega Beauty Accessories Tools"
               className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
